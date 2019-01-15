@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Questioner - MeetUp Creation</title>
+	<title>MeetUp Creation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<div class="container">
-			<h1>MEETUP CREATION</h1><br><br>
 			<form action="/" method="post">
 				<div>
 					<label>
 						TOPIC
 					</label>
 					<br><br>
-					<input type="text" name="topic" required>
+					<input type="text" name="topic">
 					<br><br>
 				</div>
 				<div>
@@ -22,7 +21,7 @@
 						LOCATION
 					</label>
 					<br><br>
-					<input type="text" name="location" required>
+					<input type="text" name="location">
 					<br><br>
 				</div>
 				<div>
@@ -38,10 +37,10 @@
 						DESCRIPTION
 					</label>
 					<br><br>
-					<textarea name="description" cols="31" rows="6" required></textarea><br>
+					<textarea name="description" cols="31" rows="6"></textarea><br>
 					<br>
 				</div>
-				<button type="submit">CREATE MEETUP</button>
+				<button><a href="create_meetup_response.html">CREATE MEETUP</a></button>
 			</form>
 	</div>
 </body>
