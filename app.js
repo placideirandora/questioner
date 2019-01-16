@@ -31,7 +31,7 @@ app.use(router);
 
 //setting up server's port
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //setting up the server for listening to the specified port and return a message of functionality
 
