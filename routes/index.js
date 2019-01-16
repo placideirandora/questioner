@@ -69,6 +69,9 @@ router.get ('/api/v1/rsvp', controller.getAllRSVPs);
 router.get ('/api/v1/rsvp/:id', controller.getSpecificRSVP);
 
 //exporting the router method so that it can be used globally
+router.get('/index',(req,res)=>{
+    res.render('index');
+});
 
 module.exports = router;
 
