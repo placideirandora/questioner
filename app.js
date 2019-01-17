@@ -12,7 +12,7 @@ const bodyParser = require ('body-parser');
 
 //importing the router 
 
-const router = require ('./routes/index.js');
+const router = require ('./server/routes/index.js');
 
 //initializing the server
 
