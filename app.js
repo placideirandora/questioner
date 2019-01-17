@@ -1,7 +1,10 @@
 //importing express
 
 const express = require ('express');
-const path=require('path');
+
+//importing path
+
+const path = require('path');
 
 //importing body-parser
 
@@ -10,12 +13,15 @@ const bodyParser = require ('body-parser');
 //importing the router 
 
 const router = require ('./routes/index.js');
+
 //initializing the server
 
-
 const app = express();
-//setting views
+
+//implementing view engine and the path
+
 app.set('view engine','ejs');
+
 app.set('views',path.join(__dirname,'views'));
 
 //implementing the body-parser
@@ -27,7 +33,6 @@ app.use (bodyParser.urlencoded({extended: false}));
 //implementing the router
 
 app.use(router);
-
 
 //setting up server's port
 

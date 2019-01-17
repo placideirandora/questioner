@@ -36,6 +36,10 @@ router.get ('/api/v1/meetups', controller.getAllMeetUps);
 
 router.get ('/api/v1/meetups/:id', controller.getSpecificMeetUp);
 
+//route for responding to a specific meetup (RSVP)
+
+router.get ('/api/v1/meetups/:id/rsvp', controller.createRSVP)
+
 //route for creating a new question
 
 router.post ('/api/v1/questions', controller.createQuestion);

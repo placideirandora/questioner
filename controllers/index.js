@@ -1,3 +1,6 @@
+//importing uuid
+
+const uuid = require ('uuid');
 
 //importing the users database 
 
@@ -25,70 +28,64 @@ class Controllers
 
     createUser (req, res)
     {   
-        //when id is not provided, a new user will not be created
-
-        if (!req.body.id)
-        {
-            return res.status(400).send({
-                "success": "false",
-                "message": "user id is required",
-            });
-        }
+        //when firstname is not provided, a new user will not be created
 
         if (!req.body.firstname)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "firstname is required",
+                "error": "firstname is required",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
+                
             });
         }
 
         if (!req.body.lastname)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "lastname is required",
+                "error": "lastname is required",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
+                
             });
         }
 
-        //when username is not provided, a new user will not be created
 
         if (!req.body.username)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "username is required",
+                "error": "username is required",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
+                
             });
         }
 
         if (!req.body.email)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "email is required",
+                "error": "email is required",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
             })
         }
 
-        if (!req.body.phonenumber)
+        if (!req.body.phoneNumber)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "phone number is required",
+                "error": "phone number is required",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
             })
         }
         
         //an object of capturing the submitted data 
 
         const addUser = {
-            id: req.body.id,
+            id: uuid.v4(),
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             othername: req.body.othername,
             email: req.body.email,
-            phonenumber: req.body.phonenumber,
+            phoneNumber: req.body.phoneNumber,
             username: req.body.username,
-            registeredDate: req.body.registeredDate,
-            isAdmin: req.body.isAdmin,
+            registered: new Date().toGMTString(),
+            isAdmin: false,
         };
 
         //array push method for adding a new user into the data structure, array
@@ -99,8 +96,8 @@ class Controllers
 
         return res.status(200).send({
 
-                "success": "true",
-                "message": "user added successfully"
+                "success": "user added successfully",
+                "user": addUser
 
         })
     }
@@ -109,10 +106,18 @@ class Controllers
 
     getAllUsers (req, res)
     {
+        if (usersDB == "")
+        {
+            return res.status(401).send({
+                "error": "there are no users to retrieve. you should firstly add some users by using POST method.",
+                "format": "firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
+   
+            });
+        }
+
         return res.status(200).send({
-            "success": "true",
-            "message": "users retrieved successfully",
-            usersDB,
+            "success": "users retrieved successfully",
+            "users": usersDB
         });
     }
 
@@ -131,9 +136,8 @@ class Controllers
             if (user.id === id)
             {
                 return res.status(200).send({
-                    "success": "true",
-                    "message": "user retrieved successfully",
-                    user
+                    "success": "user retrieved successfully",
+                    "user": user
                 });
             }
         });
@@ -141,8 +145,7 @@ class Controllers
         //when there is no matching id, return user not found with 404 status code
 
         return res.status(404).send({
-            "success": "false",
-            "message": "user not found"
+            "error": "user not found"
         });
     }
 
@@ -150,46 +153,49 @@ class Controllers
 
     createMeetUp (req, res)
     {   
-        //when id is not provided, a new meetup will not be created
+        //when location is not provided, a new meetup will not be created
 
-        if (!req.body.id)
-        {
-            return res.status(400).send({
-                "success": "false",
-                "message": "meetup id is required",
-            });
-        }
 
         if (!req.body.location)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "location is required",
+                "error": "location is required",
+                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
 
         if (!req.body.topic)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "topic is required",
+                "error": "topic is required",
+                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
 
         if (!req.body.happeningOn)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "date of meetup happening is required",
+                "error": "happeningOn (date of meetup) is required is required",
+                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+            });
+        }
+
+        if (!req.body.tags)
+        {
+            return res.status(400).send({
+                "error": "tags are required",
+                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
         
         //an object of capturing the submitted data 
 
         const addMeetUp = {
-            id: req.body.id,
-            topic: req.body.topic,
+            id: uuid.v4(),
+            createdOn: new Date().toGMTString(),
             location: req.body.location,
+            images: req.body.images,
+            topic: req.body.topic,
             happeningOn: req.body.happeningOn,
             tags: req.body.tags,
         };
@@ -202,8 +208,8 @@ class Controllers
 
         return res.status(200).send({
 
-                "success": "true",
-                "message": "meetup added successfully"
+                "success": "meetup created successfully",
+                "meetup": addMeetUp
 
         });
     }
@@ -211,11 +217,19 @@ class Controllers
     //this function returns all meetups 
 
     getAllMeetUps (req, res)
-    {
+    {   
+        if (meetUpsDB == "")
+        {
+            return res.status(401).send({
+                "error": "there are no meetups to retrieve. you should firstly add some meetups by using POST method.",
+                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+   
+            });
+        }
+
         return res.status(200).send({
-            "success": "true",
-            "message": "meetups retrieved successfully",
-            meetUpsDB,
+            "success": "meetups retrieved successfully",
+            "meetups": meetUpsDB
         });
     }
 
@@ -229,16 +243,14 @@ class Controllers
             if (meetup.id === id)
             {
                 return res.status(200).send({
-                    "success": "true",
-                    "message": "meetup retrieved successfully",
-                    meetup,
+                    "success": "meetup retrieved successfully",
+                    "meetup": meetup,
                 });
             }
         });
 
        return res.status(404).send({
-            "success": "false",
-            "message": "meetup not found"
+            "error": "meetup not found"
         });
     }
 
@@ -246,37 +258,31 @@ class Controllers
 
     createQuestion (req, res)
     {   
-        //when id is not provided, a new question will not be created
+        //when username is not provided, a new question will not be created
 
-        if (!req.body.id)
+
+        if (!req.body.createdBy)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "question id is required",
-            });
-        }
-
-        if (!req.body.user)
-        {
-            return res.status(400).send({
-                "success": "false",
-                "message": "the user who asked the question is required",
+                "error": "CreatedBy (the user who asked the question) is required",
+                "format": "createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
+            
             });
         }
 
         if (!req.body.meetup)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "the meetup for the question is required",
+                "error": "body (content of your question) is required",
+                "format": "createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
             });
         }
 
         if (!req.body.title)
         {
             return res.status(400).send({
-                "success": "false",
-                "message": "title of the question is required",
+                "error": "title (of your question) is required",
+                "format": "createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
             });
         }
 
@@ -291,8 +297,9 @@ class Controllers
         //an object of capturing the submitted data 
 
         const addQuestion = {
-            id: req.body.id,
-            user: req.body.user,
+            id: uuid.v4(),
+            createdOn: new Date().toGMTString(),
+            createdBy: req.body.createdBy,
             meetup: req.body.meetup,
             title: req.body.title,
             body: req.body.body,
@@ -307,8 +314,8 @@ class Controllers
 
         return res.status(200).send({
 
-                "success": "true",
-                "message": "question posted successfully"
+                "success": "question posted successfully",
+                "question": addQuestion
 
         })
     }
@@ -317,10 +324,18 @@ class Controllers
 
      getAllQuestions (req, res)
      {
+
+        if (questionsDB == "")
+        {
+            return res.status(401).send({
+                "error": "there are no questions to retrieve. you should firstly add some questions by using POST method.",
+                "format": "createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
+            });
+        }
+
          return res.status(200).send({
-             "success": "true",
-             "message": "questions retrieved successfully",
-             questionsDB,
+             "success": "questions retrieved successfully",
+             "questions": questionsDB
          });
      }
  
@@ -334,16 +349,15 @@ class Controllers
              if (question.id === id)
              {
                  return res.status(200).send({
-                     "success": "true",
-                     "message": "question retrieved successfully",
-                     question,
+                     "success": "question retrieved successfully",
+                     "question": question
                  });
              }
          });
  
         return res.status(404).send({
-             "success": "false",
-             "message": "question not found"
+             "error": "question not found"
+             
          });
      }
 
@@ -419,7 +433,7 @@ class Controllers
 
 createRSVP (req, res)
 {
- //when id is not provided, a new user will not be created
+ //when id is not provided, a new meetup will not be created
 
  if (!req.body.id)
  {
