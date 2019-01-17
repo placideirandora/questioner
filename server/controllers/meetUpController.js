@@ -3,7 +3,6 @@
 const meetUpsDB = require ('../models/meetUpDB.js');
 
 class meetUpControllers
-
 {
 
     createMeetUp (req, res)
