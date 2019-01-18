@@ -1,1 +1,2 @@
 repo_token: mfDR7mG3nqR37jkuharniFQtqglekQFWE 
+gem 'coveralls', require: false
