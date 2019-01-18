@@ -2,6 +2,8 @@
 
 const meetUpsDB = require ('../models/meetUpDB.js');
 
+const uuid = require ('uuid');
+
 class meetUpControllers
 {
 
@@ -17,6 +19,8 @@ class meetUpControllers
                 "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
+        
+console.log();
 
         if (!req.body.topic)
         {

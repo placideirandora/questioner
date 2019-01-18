@@ -2,6 +2,8 @@
 
 const usersDB = require ('../models/userDB.js');
 
+const uuid = require ('uuid');
+
 class userControllers
 
 {
