@@ -75,21 +75,17 @@ class userControllers
             isAdmin: false,
         };
 
-        //array push method for adding a new user into the data structure, array
-
         usersDB.push (addUser);
 
-        //when successfully added, return a message of the success with the status code, OK
 
-        return res.status(200).send({
-                "status": 200,
+        return res.status(201).send({
+                "status": 201,
                 "success": "user added successfully",
-                "user": addUser
+                "data": addUser
 
         })
     }
 
-    //this function returns all users 
 
     getAllUsers (req, res)
     {
@@ -106,19 +102,15 @@ class userControllers
         return res.status(200).send({
             "status": 200,
             "success": "users retrieved successfully",
-            "users": usersDB
+            "data": usersDB
         });
     }
 
-    //this function returns a specific user 
 
     getSpecificUser (req, res)
     {   
-        //extracting the submitted id
 
         const id = req.params.id;
-
-        //looping through the entire db to find a matching id and return the user
 
         usersDB.map ((user, index) => {
 
@@ -127,7 +119,7 @@ class userControllers
                 return res.status(200).send({
                     "status": 200,
                     "success": "user retrieved successfully",
-                    "user": user
+                    "data": user
                 });
             }
         });
