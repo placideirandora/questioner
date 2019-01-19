@@ -1,20 +1,18 @@
-//importing express
+//importing required modules for functionality
 
 const express = require ('express');
 
-//importing path
+const userRouter = require ('./server/routes/userRoutes');
+
+const meetUpRouter = require ('./server/routes/meetUpRoutes');
+
+const questionRouter = require ('./server/routes/questionRoutes');
 
 const path = require('path');
 
-//importing body-parser
-
 const bodyParser = require ('body-parser');
 
-//importing the router 
-
-const router = require ('./server/routes/index.js');
-
-//initializing the server
+//setting up the server
 
 const app = express();
 
@@ -30,11 +28,15 @@ app.use (bodyParser.json());
 
 app.use (bodyParser.urlencoded({extended: false}));
 
-//implementing the router
+//implementing the routers
 
-app.use(router);
+app.use(userRouter);
 
-//setting up server's port
+app.use(meetUpRouter);
+
+app.use(questionRouter);
+
+//setting up the server's port
 
 const PORT = process.env.PORT || 3000;
 
