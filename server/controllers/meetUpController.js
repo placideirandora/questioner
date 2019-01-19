@@ -20,7 +20,6 @@ class meetUpControllers
             });
         }
         
-console.log();
 
         if (!req.body.topic)
         {
@@ -65,11 +64,11 @@ console.log();
         meetUpsDB.push (addMeetUp);
 
 
-        return res.status(200).send({
+        return res.status(201).send({
 
-                "status": 200,
+                "status": 201,
                 "success": "meetup created successfully",
-                "meetup": addMeetUp
+                "data": addMeetUp
 
         });
     }
@@ -91,7 +90,7 @@ console.log();
         return res.status(200).send({
             "status": 200,
             "success": "meetups retrieved successfully",
-            "meetups": meetUpsDB
+            "data": meetUpsDB
         });
     }
 
@@ -105,7 +104,7 @@ console.log();
                 return res.status(200).send({
                     "status": 200,
                     "success": "meetup retrieved successfully",
-                    "meetup": meetup,
+                    "data": meetup,
                 });
             }
         });
