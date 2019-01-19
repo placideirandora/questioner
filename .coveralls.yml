@@ -1,3 +1,2 @@
 service_name: travis-ci
 repo_token: 5dI5cuGDvqPF72a7plXJz2T2jpjh8UKdC
-gem 'coveralls', require: false
