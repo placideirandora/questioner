@@ -2,21 +2,27 @@
 
 const meetUpsDB = require ('../models/meetUpDB.js');
 
-const uuid = require ('uuid');
-
 class meetUpControllers
 {
 
     createMeetUp (req, res)
     {   
-
+        
+        if (!req.body.id)
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": "id (the id of the meetup) is required",
+                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+            });
+        }
 
         if (!req.body.location)
         {
             return res.status(400).send({
                 "status": 400,
                 "error": "location is required",
-                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+                "format": "id (required),location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
         
@@ -26,7 +32,7 @@ class meetUpControllers
             return res.status(400).send({
                 "status": 400,
                 "error": "topic is required",
-                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
 
@@ -35,7 +41,7 @@ class meetUpControllers
             return res.status(400).send({
                 "status": 400,
                 "error": "happeningOn (date of meetup) is required is required",
-                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
 
@@ -44,14 +50,14 @@ class meetUpControllers
             return res.status(400).send({
                 "status": 400,
                 "error": "tags are required",
-                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
             });
         }
         
         //an object of capturing the submitted data 
 
         const addMeetUp = {
-            id: uuid.v4(),
+            id: req.body.id,
             createdOn: new Date().toGMTString(),
             location: req.body.location,
             images: req.body.images,
@@ -82,7 +88,7 @@ class meetUpControllers
             return res.status(401).send({
                 "status": 401,
                 "error": "there are no meetups to retrieve. you should firstly add some meetups by using POST method.",
-                "format": "location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
+                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
    
             });
         }
@@ -96,7 +102,7 @@ class meetUpControllers
 
     getSpecificMeetUp(req, res)
     {
-        const id = req.params.id;
+        const id = parseInt(req.params.id, 10);
 
         meetUpsDB.map ((meetup, index) => {
             if (meetup.id === id)
