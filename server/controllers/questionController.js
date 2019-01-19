@@ -57,17 +57,17 @@ class questionControllers
             meetup: req.body.meetup,
             title: req.body.title,
             body: req.body.body,
-            votes: 0
+        
         };
 
 
         questionsDB.push (addQuestion);
 
 
-        return res.status(200).send({
-                "status": 200,
+        return res.status(201).send({
+                "status": 201,
                 "success": "question posted successfully",
-                "question": addQuestion
+                "data": addQuestion
 
         })
     }
@@ -88,7 +88,7 @@ class questionControllers
          return res.status(200).send({
              "status": 200,
              "success": "questions retrieved successfully",
-             "questions": questionsDB
+             "data": questionsDB
          });
      }
  
@@ -104,7 +104,7 @@ class questionControllers
                  return res.status(200).send({
                      "status": 200,
                      "success": "question retrieved successfully",
-                     "question": question
+                     "data": question
                  });
              }
          });
@@ -143,49 +143,67 @@ class questionControllers
         }
     
         const updateTheQuestion = {
-            id: req.body.id,
-            user: req.body.user,
-            meetup: req.body.meetup,
-            title: req.body.title,
-            body: req.body.body,
-            votes:  question.length + 1
+            meetup: questionFound.meetup,
+            title: questionFound.title,
+            body: questionFound.body,
+            votes: 1
         };
     
-        questionsDB.splice (itemIndex, 1, updateTheQuestion);
+     //   questionsDB.splice (itemIndex, 1, updateTheQuestion);
     
         return res.status (200).send ({
             "status": 200,
-            "success": 'true',
-            "message": 'question upvoted successfully',
+            "success": 'question upvoted successfully',
+            "data":
             updateTheQuestion,
         });
 
      }
 
-     //this function downvotes a specific question
 
      downvoteQuestion (req, res)
      {
+           
         const id = req.params.id;
- 
-        questionsDB.map ((question, index) => {
-            if (question.id === id)
+
+        let questionFound;
+        let itemIndex;
+    
+        questionsDB.map ((findQuestion, index) => {
+            if (findQuestion.id === id) 
             {
-                return res.status(200).send({
-                    "status": 200,
-                    "success": "true",
-                    "message": "question downvoted successfully",
-                    question,
-                });
+                questionFound = findQuestion;
+                itemIndex = index;
+    
             }
         });
-
-       return res.status(404).send({
-           "status": 404,
-            "success": "false",
-            "message": "question downvote failed"
+    
+        if (!questionFound)
+        {
+            return res.status(404).send({
+                "status": 404,
+                 "error": "question not found"
+            
+            });
+        }
+    
+        const updateTheQuestion = {
+            meetup: questionFound.meetup,
+            title: questionFound.title,
+            body: questionFound.body,
+            votes: 1
+        };
+    
+     //   questionsDB.splice (itemIndex, 1, updateTheQuestion);
+    
+        return res.status (200).send ({
+            "status": 200,
+            "success": 'question downvoted successfully',
+            "data":
+            updateTheQuestion,
         });
-     }    
+
+    }
 
 
 }
