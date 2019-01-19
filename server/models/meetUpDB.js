@@ -1,8 +1,7 @@
-const uuid = require ('uuid'); 
 
 const meetUpsDB = [
     {
-        "id": uuid.v4(),
+        "id": 1,
         "createdOn": new Date().toGMTString(),
         "location": "University of Rwanda - College of Science and Technology - KIST 4",
         "images": [ "image 1", "image2" ],
@@ -12,7 +11,7 @@ const meetUpsDB = [
     },
 
     {
-        "id": uuid.v4(),
+        "id": 2,
         "createdOn": new Date().toGMTString(),
         "location": "FAIR VIEW - WESTERWEL",
         "images": [ "image 1", "image2" ],
@@ -22,7 +21,7 @@ const meetUpsDB = [
     },
 
     {
-        "id": uuid.v4(),
+        "id": 3,
         "createdOn": new Date().toGMTString(),
         "location": "TELECOM",
         "images": [ "image 1", "image2" ],

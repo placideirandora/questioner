@@ -1,10 +1,8 @@
-const uuid = require ('uuid');
-
 //initializing a data structure, array for temporarily storing users
 
 const usersDB = [
     {   
-        "id": uuid.v4(),
+        "id": 1,
         "firstname": "Placide",
         "lastname": "IRANDORA",
         "othername": "geek",
@@ -14,7 +12,7 @@ const usersDB = [
     },
 
     {   
-        "id": uuid.v4(),
+        "id": 2,
         "firstname": "Innocent",
         "lastname": "TUYISHIMIRE",
         "othername": "bienvenu",
@@ -24,7 +22,7 @@ const usersDB = [
     },
 
     {   
-        "id": uuid.v4(),
+        "id": 3,
         "firstname": "Fred",
         "lastname": "MANZI",
         "othername": "nyakawhite",
