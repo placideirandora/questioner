@@ -25,9 +25,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -44,9 +42,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -61,9 +57,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -79,9 +73,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -98,9 +90,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -115,9 +105,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -140,9 +128,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
         })
          .end((err, res) => {
              res.body.should.status(201);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -162,9 +148,7 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
         })
          .end((err, res) => {
              res.body.should.status(201);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 
@@ -182,9 +166,7 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -200,9 +182,7 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -217,9 +197,7 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -233,9 +211,7 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -258,9 +234,7 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
         })
          .end((err, res) => {
              res.body.should.status(201);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -277,9 +251,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -295,9 +267,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -311,9 +281,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -327,9 +295,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -351,9 +317,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
         })
          .end((err, res) => {
              res.body.should.status(201);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -369,9 +333,7 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .set('Accept', 'Application/JSON')
          .end((err, res) => {
              res.body.should.status(200);
-             res.body.should.be.a('object');
-             console.log(res.body);
-             done()
+             res.body.should.be.a('object');done()
          })
     })
 })
@@ -386,7 +348,6 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
          .end((err, res) => {
              res.body.should.status(200);
              res.body.should.be.a('object');
-             console.log(res.body);
              done()
          })
     })
