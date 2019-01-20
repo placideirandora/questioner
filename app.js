@@ -16,11 +16,17 @@ const bodyParser = require ('body-parser');
 
 const app = express();
 
-//implementing view engine and the path
+//setting the view engine to ejs and the path
 
 app.set('view engine','ejs');
 
-app.set('views',path.join(__dirname,'views'));
+app.set('views', path.join(__dirname,'server/views'));
+
+//back-end web-app ejs template for homepage
+
+app.get('/', (req, res) => {
+    res.render('index')
+  });
 
 //implementing the body-parser
 
