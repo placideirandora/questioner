@@ -8,6 +8,12 @@ chai.should();
 
 let server = require ('../../app');
 
+const meetUpsDB = require ('../models/meetUpDB.js');
+
+const usersDB = require ('../models/userDB.js');
+
+const questionsDB = require ('../models/questionDB.js');
+
 //testing meetup endpoints
 
 //GET /meetups/
@@ -81,21 +87,78 @@ describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
 
 })
 
+//retrieving upcoming meetups
+
+//GET /meetups/upcoming/
+
+describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
+    it ('Should return 200 as STATUS RESPONSE CODE and an OBJECT containing upcoming meetups', (done) => {
+         chai.request(server)
+         .get('/api/v1/meetups/upcoming')
+         .set('Accept', 'Application/JSON')
+         .end((err, res) => {
+             res.body.should.status(200);
+             res.body.should.be.a('object');
+             console.log(res.body);
+             done()
+         })
+    })
+
+})
+
+//GET /meetups/:id/rsvps
+
+describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
+    it ('Should return 200 as STATUS RESPONSE CODE and an OBJECT containing meetup rsvp', (done) => {
+         chai.request(server)
+         .get('/api/v1/meetups/1/rsvps')
+         .set('Accept', 'Application/JSON')
+         .end((err, res) => {
+             res.body.should.status(200);
+             res.body.should.be.a('object');
+             console.log(res.body);
+             done()
+         })
+    })
+
+})
+
+
 //POST /meetups/
 
 describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
-    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing CREATED DATA', (done) => {
+    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing MEETUP CREATED RECORD', (done) => {
          chai.request(server)
          .post('/api/v1/meetups/')
          .set('Accept', 'Application/JSON')
          .send({
-            "id": 4,
-            "createdOn": new Date().toGMTString(),
             "location": "University of Rwanda - Huye Campus",
             "images": [ "image 1", "image2" ],
             "topic": "CYBERSECURITY CONFERENCE",
             "happeningOn": new Date("2019-05-11").toGMTString(),
             "tags": [ "information security", "cryptography", "authentication" ]
+        })
+         .end((err, res) => {
+             res.body.should.status(201);
+             res.body.should.be.a('object');
+             console.log(res.body);
+             done()
+         })
+    })
+
+})
+
+//POST /meetup/:id/rsvps
+
+describe ('RESTFUL API ENDPOINT: MEETUPS', () =>{
+    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing MEETUP RSVP CREATED RECORD', (done) => {
+         chai.request(server)
+         .post('/api/v1/meetups/1/rsvps')
+         .set('Accept', 'Application/JSON')
+         .send({
+            "meetup": "3",
+            "topic": "PROGATE MEETUP 20",
+            "response": "yes"
         })
          .end((err, res) => {
              res.body.should.status(201);
@@ -180,18 +243,18 @@ describe ('RESTFUL API ENDPOINT: USERS', () =>{
 //POST /users/
 
 describe ('RESTFUL API ENDPOINT: USERS', () =>{
-    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing CREATED DATA', (done) => {
+    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing USER CREATED RECORD', (done) => {
          chai.request(server)
          .post('/api/v1/users/')
          .set('Accept', 'Application/JSON')
          .send ({   
-            "id": 4,
             "firstname": "Emmanuel",
             "lastname": "CYUBAHIRO",
             "othername": "cr7",
             "email": "emmanuelcyubahiro@gmail.com",
             "phoneNumber": "07860456185",
-            "username": "emmanuelcyubahiro"
+            "username": "emmanuelcyubahiro",
+            "isAdmin": "true"
         })
          .end((err, res) => {
              res.body.should.status(201);
@@ -276,20 +339,52 @@ describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
 //POST /questions/
 
 describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
-    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing CREATED DATA', (done) => {
+    it ('Should return 201 as STATUS RESPONSE CODE and an OBJECT containing QUESTION CREATED RECORD', (done) => {
          chai.request(server)
          .post('/api/v1/questions/')
          .set('Accept', 'Application/JSON')
          .send({
-            "id": 4,
-            "createdOn": new Date().toGMTString(),
-            "createdBy": "eb8f4f4b-ca69-4d09-bffc-f004dfd51d6f",
-            "meetup": "9837906e-b799-4cdd-90d7-d2f03fd9e3fj",
+            "createdBy": "1",
+            "meetup": "4",
             "title": "CYBERSECURITY CONFERENCE",
             "body": "Why is Cybersecurity so important?"
         })
          .end((err, res) => {
              res.body.should.status(201);
+             res.body.should.be.a('object');
+             console.log(res.body);
+             done()
+         })
+    })
+})
+
+//upvoting and downvoting questions
+
+//PATCH /questions/1/upvote
+
+describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
+    it ('Should return 200 as STATUS RESPONSE CODE and an OBJECT containing UPVOTED QUESTION RECORD', (done) => {
+         chai.request(server)
+         .patch('/api/v1/questions/1/upvote')
+         .set('Accept', 'Application/JSON')
+         .end((err, res) => {
+             res.body.should.status(200);
+             res.body.should.be.a('object');
+             console.log(res.body);
+             done()
+         })
+    })
+})
+
+//PATCH /questions/1/downvote
+
+describe ('RESTFUL API ENDPOINT: QUESTIONS', () =>{
+    it ('Should return 200 as STATUS RESPONSE CODE and an OBJECT containing DOWNVOTED QUESTION RECORD', (done) => {
+         chai.request(server)
+         .patch('/api/v1/questions/1/downvote')
+         .set('Accept', 'Application/JSON')
+         .end((err, res) => {
+             res.body.should.status(200);
              res.body.should.be.a('object');
              console.log(res.body);
              done()
