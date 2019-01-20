@@ -1,6 +1,6 @@
 const express = require ('express');
 
-const meetUpController = require ('../controllers/MeetUpController.js');
+const meetUpController = require ('../controllers/meetUpController.js');
 
 const meetUpRouter = express.Router();
 

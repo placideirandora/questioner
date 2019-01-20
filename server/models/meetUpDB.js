@@ -34,6 +34,3 @@ const meetUpsDB = [
 
 
 module.exports = meetUpsDB;
-
-
-
