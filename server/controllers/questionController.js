@@ -33,6 +33,8 @@ class questionControllers
             meetup: req.body.meetup,
             title: req.body.title,
             body: req.body.body,
+            upvotes: 0,
+            downvotes: 0
         
         };
 
