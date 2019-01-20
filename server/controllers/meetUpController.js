@@ -1,63 +1,33 @@
-//importing the meetups database 
+const Joi = require ('joi');
 
 const meetUpsDB = require ('../models/meetUpDB.js');
 
+const meetUpSchema = require ('../helpers/meetUpSchema.js');
+
+const rsvpSchema = require ('../helpers/rsvpSchema.js');
+
+const rsvpsDB = require ('../models/rsvpDB.js');
+
 class meetUpControllers
 {
-
     createMeetUp (req, res)
-    {   
+    {          
+        const { error } = Joi.validate (req.body, meetUpSchema);
+
+        if (error)
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": error.details[0].message
+            })
+        }
+
+        else 
+
+        {
         
-        if (!req.body.id)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "id (the id of the meetup) is required",
-                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-            });
-        }
-
-        if (!req.body.location)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "location is required",
-                "format": "id (required),location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-            });
-        }
-        
-
-        if (!req.body.topic)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "topic is required",
-                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-            });
-        }
-
-        if (!req.body.happeningOn)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "happeningOn (date of meetup) is required is required",
-                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-            });
-        }
-
-        if (!req.body.tags)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "tags are required",
-                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-            });
-        }
-        
-        //an object of capturing the submitted data 
-
         const addMeetUp = {
-            id: req.body.id,
+            id: meetUpsDB.length +1,
             createdOn: new Date().toGMTString(),
             location: req.body.location,
             images: req.body.images,
@@ -66,9 +36,7 @@ class meetUpControllers
             tags: req.body.tags,
         };
 
-
         meetUpsDB.push (addMeetUp);
-
 
         return res.status(201).send({
 
@@ -78,20 +46,10 @@ class meetUpControllers
 
         });
     }
-
-
+}
 
     getAllMeetUps (req, res)
     {   
-        if (meetUpsDB == "")
-        {
-            return res.status(401).send({
-                "status": 401,
-                "error": "there are no meetups to retrieve. you should firstly add some meetups by using POST method.",
-                "format": "id (required), location (required), images (optional), topic (required), happeningOn (required), tags (required) " 
-   
-            });
-        }
 
         return res.status(200).send({
             "status": 200,
@@ -102,10 +60,10 @@ class meetUpControllers
 
     getSpecificMeetUp(req, res)
     {
-        const id = parseInt(req.params.id, 10);
+        const gsmid = parseInt(req.params.id, 10);
 
         meetUpsDB.map ((meetup, index) => {
-            if (meetup.id === id)
+            if (meetup.id === gsmid)
             {
                 return res.status(200).send({
                     "status": 200,
@@ -120,6 +78,103 @@ class meetUpControllers
             "error": "meetup not found"
         });
     }
+
+
+
+
+    createMeetUpRSVP(req, res)
+    {
+
+
+    const meetup = meetUpsDB.find(m => m.id === parseInt(req.params.id, 10));
+    if (!meetup) {
+        return res.status(404).send({
+            status: 404,
+            error: "meetup not found"
+        });
+    }
+    
+    const { error } = Joi.validate (req.body, rsvpSchema);
+
+        if (error)
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": error.details[0].message
+            })
+        }
+
+        else 
+
+        {
+
+
+    const rsvp = {
+    
+        meetup: req.body.meetup,
+        topic: req.body.topic,
+        status: req.body.response,
+    };
+    
+    rsvpsDB.push(rsvp);
+
+    return res.status(201).send({
+
+        "status": 201,
+        "success": "meetup rsvp created successfully",
+        "data": rsvp
+});
+
+        }
+    }
+
+    getMeetUpRSVP(req, res)
+    {
+        const meetup = meetUpsDB.find(m => m.id === parseInt(req.params.id, 10));
+    if (!meetup) {
+        return res.status(404).send({
+            status: 404,
+            error: "meetup not found"
+        });
+    }
+
+
+    return res.status(200).send({
+        "status": 200,
+        "success": "meetup rsvp retrieved successfully",
+        "data": rsvpsDB
+    });
+
+
+
+
+    }
+
+
+    getUpcomingMeetUps(req, res)
+    {
+        
+    meetUpsDB.sort((a, b) => {
+        const result = new Date(a.happeningOn) - new Date(b.happeningOn);
+        return result;
+    });
+    const data = [];
+    meetUpsDB.forEach((meetup) => {
+        
+        if (new Date(meetup.happeningOn) >= new Date()) {
+            data.push(meetup);
+        }
+    });
+
+
+    return res.status(200).send({
+        "status": 200,
+        "success": "upcoming meetups",
+        data
+    });
+}
+
+
     
 }
 

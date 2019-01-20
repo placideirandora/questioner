@@ -2,75 +2,32 @@
 
 const usersDB = require ('../models/userDB.js');
 
+const userSchema = require ('../helpers/userSchema.js');
+
+const Joi = require ('joi');
+
 class userControllers
 
 {
 
     createUser (req, res)
     {   
-        if (!req.body.id)
+        const { error } = Joi.validate (req.body, userSchema);
+
+        if (error)
         {
             return res.status(400).send({
                 "status": 400,
-                "error": "id (the id of the user) is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-                
-            });
-        }
-
-        if (!req.body.firstname)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "firstname is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-                
-            });
-        }
-
-        if (!req.body.lastname)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "lastname is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-                
-            });
-        }
-
-
-        if (!req.body.username)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "username is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-                
-            });
-        }
-
-        if (!req.body.email)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "email is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
+                "error": error.details[0].message
             })
         }
 
-        if (!req.body.phoneNumber)
+        else 
+
         {
-            return res.status(400).send({
-                "status": 400,
-                "error": "phoneNumber is required",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-            })
-        }
-        
-        //an object of capturing the submitted data 
 
         const addUser = {
-            id: req.body.id,
+            id: usersDB.length + 1,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             othername: req.body.othername,
@@ -83,27 +40,17 @@ class userControllers
 
         usersDB.push (addUser);
 
-
         return res.status(201).send({
                 "status": 201,
                 "success": "user added successfully",
                 "data": addUser
-
         })
     }
+}
 
 
     getAllUsers (req, res)
     {
-        if (usersDB == "")
-        {
-            return res.status(401).send({
-                "status": 400,
-                "error": "there are no users to retrieve. you should firstly add some users by using POST method.",
-                "format": "id (required), firstname (required), lastname (required), othername (optional), email (required), phoneNumber (required), username (required) " 
-   
-            });
-        }
 
         return res.status(200).send({
             "status": 200,
@@ -116,11 +63,11 @@ class userControllers
     getSpecificUser (req, res)
     {   
 
-        const id = parseInt(req.params.id, 10);
+        const gsuid = parseInt(req.params.id, 10);
 
         usersDB.map ((user, index) => {
 
-            if (user.id === id)
+            if (user.id === gsuid)
             {
                 return res.status(200).send({
                     "status": 200,

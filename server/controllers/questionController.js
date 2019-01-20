@@ -1,4 +1,8 @@
+const Joi = require ('joi');
+
 const questionsDB = require ('../models/questionDB.js');
+
+const questionSchema = require ('../helpers/questionSchema.js');
 
 class questionControllers
 
@@ -8,56 +12,22 @@ class questionControllers
     createQuestion (req, res)
     {   
 
-        if (!req.body.id)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "id (the id of the question) is required",
-                "format": "id (required), createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
-            
-            });
-        }
+        const { error } = Joi.validate (req.body, questionSchema);
 
-        if (!req.body.createdBy)
+        if (error)
         {
             return res.status(400).send({
                 "status": 400,
-                "error": "CreatedBy (the user who asked the question) is required",
-                "format": "id (required), createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
-            
-            });
-        }
-
-        if (!req.body.meetup)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "meetup (the id of the meetup) is required",
-                "format": "id (required), createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
-            });
-        }
-
-        if (!req.body.title)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": "title (of your question) is required",
-                "format": "id (required), createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
-            });
-        }
-
-        if (!req.body.body)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "success": "false",
-                "message": "id (required), the content of the question is required",
+                "error": error.details[0].message
             })
         }
-        
+
+        else 
+
+        {
 
         const addQuestion = {
-            id: req.body.id,
+            id: questionsDB.length + 1,
             createdOn: new Date().toGMTString(),
             createdBy: req.body.createdBy,
             meetup: req.body.meetup,
@@ -78,18 +48,11 @@ class questionControllers
         })
     }
 
+}
+
 
      getAllQuestions (req, res)
      {
-
-        if (questionsDB == "")
-        {
-            return res.status(401).send({
-                "status": 401,
-                "error": "there are no questions to retrieve. you should firstly add some questions by using POST method.",
-                "format": "id (required), createdBy (user id is required), meetup (meetup id is required), title (required), body (required) "
-            });
-        }
 
          return res.status(200).send({
              "status": 200,
@@ -125,13 +88,15 @@ class questionControllers
 
      upvoteQuestion (req, res)
      {
-        const id = parseInt(req.params.id, 10);
+        
+        const uqid = parseInt(req.params.id, 10);
+        const arrIndex = questionsDB.findIndex(q => q.id === parseInt(req.params.id, 10));
 
         let questionFound;
         let itemIndex;
     
         questionsDB.map ((findQuestion, index) => {
-            if (findQuestion.id === id) 
+            if (findQuestion.id === uqid) 
             {
                 questionFound = findQuestion;
                 itemIndex = index;
@@ -147,15 +112,15 @@ class questionControllers
             
             });
         }
+
+        
     
         const updateTheQuestion = {
             meetup: questionFound.meetup,
             title: questionFound.title,
             body: questionFound.body,
-            votes: 1
+            votes: questionsDB[arrIndex].upvotes++
         };
-    
-     //   questionsDB.splice (itemIndex, 1, updateTheQuestion);
     
         return res.status (200).send ({
             "status": 200,
@@ -164,19 +129,22 @@ class questionControllers
             updateTheQuestion,
         });
 
-     }
+    }
+
+     
 
 
      downvoteQuestion (req, res)
      {
            
-        const id = parseInt(req.params.id, 10);
+        const dqid = parseInt(req.params.id, 10);
+        const arrIndex = questionsDB.findIndex(q => q.id === parseInt(req.params.id, 10));
 
         let questionFound;
         let itemIndex;
     
         questionsDB.map ((findQuestion, index) => {
-            if (findQuestion.id === id) 
+            if (findQuestion.id === dqid) 
             {
                 questionFound = findQuestion;
                 itemIndex = index;
@@ -192,15 +160,16 @@ class questionControllers
             
             });
         }
+
+        
     
         const updateTheQuestion = {
             meetup: questionFound.meetup,
             title: questionFound.title,
             body: questionFound.body,
-            votes: 1
+            votes: questionsDB[arrIndex].downvotes++
         };
-    
-     //   questionsDB.splice (itemIndex, 1, updateTheQuestion);
+
     
         return res.status (200).send ({
             "status": 200,
