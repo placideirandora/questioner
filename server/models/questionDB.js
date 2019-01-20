@@ -7,7 +7,9 @@ const questionsDB = [
         "createdBy": 1,
         "meetup": 1,
         "title": "ANDELA LEARNING COMMUNITY",
-        "body": "What is the importance of ALC relating to Andela?"
+        "body": "What is the importance of ALC relating to Andela?",
+        "upvotes": 0,
+        "downvotes": 0
     },
     {
         "id": 2,

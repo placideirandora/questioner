@@ -13,6 +13,16 @@ const meetUpsDB = [
     {
         "id": 2,
         "createdOn": new Date().toGMTString(),
+        "location": "TELECOM",
+        "images": [ "image 1", "image2" ],
+        "topic": "ANDELA OPEN SESSION",
+        "happeningOn": new Date("2019-08-01").toGMTString(),
+        "tags": [ "andela", "fellowship", "assessments" ]
+    },
+
+    {
+        "id": 3,
+        "createdOn": new Date().toGMTString(),
         "location": "FAIR VIEW - WESTERWEL",
         "images": [ "image 1", "image2" ],
         "topic": "PROGATE MEETUP 20",
@@ -20,15 +30,6 @@ const meetUpsDB = [
         "tags": [ "JavaScript", "Python", "CSS" ]
     },
 
-    {
-        "id": 3,
-        "createdOn": new Date().toGMTString(),
-        "location": "TELECOM",
-        "images": [ "image 1", "image2" ],
-        "topic": "ANDELA OPEN SESSION",
-        "happeningOn": new Date("2019-08-01").toGMTString(),
-        "tags": [ "andela", "fellowship", "assessments" ]
-    },
 ];
 
 
