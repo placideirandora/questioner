@@ -17,7 +17,9 @@ const questionsDB = [
         "createdBy": 2,
         "meetup": 2,
         "title": "PROGATE MEETUP 20",
-        "body": "What is the best language to learn in 2019 between JavaScript and Python?"
+        "body": "What is the best language to learn in 2019 between JavaScript and Python?",
+        "upvotes": 0,
+        "downvotes": 0
     },
     {
         "id": 3,
@@ -25,7 +27,9 @@ const questionsDB = [
         "createdBy": 3,
         "meetup": 3,
         "title": "ANDELA OPEN SESSION",
-        "body": "Will Andela stop recruiting Developers after reaching 500"
+        "body": "Will Andela stop recruiting Developers after reaching 500",
+        "upvotes": 0,
+        "downvotes": 0
     },
     
 ];
