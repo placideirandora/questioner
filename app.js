@@ -1,18 +1,14 @@
-//importing required modules for functionality
+import express from 'express';
 
-const express = require ('express');
+import userRouter from './server/routes/userRoutes';
 
-const userRouter = require ('./server/routes/userRoutes');
+import meetUpRouter from './server/routes/meetUpRoutes';
 
-const meetUpRouter = require ('./server/routes/meetUpRoutes');
+import questionRouter from './server/routes/questionRoutes';
 
-const questionRouter = require ('./server/routes/questionRoutes');
+import path from 'path';
 
-const path = require('path');
-
-const bodyParser = require ('body-parser');
-
-//setting up the server
+import bodyParser from 'body-parser';
 
 const app = express();
 
@@ -28,13 +24,11 @@ app.get('/', (req, res) => {
     res.render('index')
   });
 
-//implementing the body-parser
+//implementing the body-parser and routers
 
 app.use (bodyParser.json());
 
 app.use (bodyParser.urlencoded({extended: false}));
-
-//implementing the routers
 
 app.use(userRouter);
 
@@ -46,11 +40,8 @@ app.use(questionRouter);
 
 const PORT = process.env.PORT || 3000;
 
-//setting up the server for listening to the specified port and return a message of functionality
-
 app.listen (PORT, () => {
     console.log (`Server listening on the port: ${PORT}`);
 });
 
-
-module.exports = app
+export default app;

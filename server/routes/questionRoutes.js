@@ -1,6 +1,6 @@
-const express = require ('express');
+import express from 'express';
 
-const questionController = require ('../controllers/questionController.js');
+import questionController from '../controllers/questionController.js';
 
 const questionRouter = express.Router();
 
@@ -15,4 +15,4 @@ questionRouter.patch ('/api/v1/questions/:id/upvote/', questionController.upvote
 questionRouter.patch ('/api/v1/questions/:id/downvote/', questionController.downvoteQuestion);
 
 
-module.exports = questionRouter;
+export default questionRouter;

@@ -1,8 +1,8 @@
-const Joi = require ('joi');
+import Joi from 'joi';
 
-const questionsDB = require ('../models/questionDB.js');
+import questionsDB from '../models/questionDB.js';
 
-const questionSchema = require ('../helpers/questionSchema.js');
+import questionSchema from '../helpers/questionSchema.js';
 
 class questionControllers
 
@@ -187,4 +187,4 @@ class questionControllers
 
 const questionController = new questionControllers();
 
-module.exports = questionController;
+export default questionController;

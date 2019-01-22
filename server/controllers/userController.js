@@ -1,10 +1,10 @@
 //importing the users database 
 
-const usersDB = require ('../models/userDB.js');
+import usersDB from '../models/userDB.js';
 
-const userSchema = require ('../helpers/userSchema.js');
+import userSchema from '../helpers/userSchema.js';
 
-const Joi = require ('joi');
+import Joi from 'joi';
 
 class userControllers
 
@@ -35,7 +35,7 @@ class userControllers
             phoneNumber: req.body.phoneNumber,
             username: req.body.username,
             registered: new Date().toGMTString(),
-            isAdmin: false,
+            isAdmin: req.body.isAdmin
         };
 
         usersDB.push (addUser);
@@ -88,4 +88,4 @@ class userControllers
 
 const userController = new userControllers();
 
-module.exports = userController;
+export default userController;

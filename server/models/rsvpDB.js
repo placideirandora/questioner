@@ -10,4 +10,4 @@ const rsvpsDB = [
    
   ]
 
-  module.exports = rsvpsDB;
+  export default rsvpsDB;
