@@ -34,4 +34,4 @@ const questionsDB = [
     
 ];
 
-module.exports = questionsDB;
+export default questionsDB;

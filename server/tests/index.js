@@ -1,18 +1,13 @@
-const chai = require('chai');
+import chai from 'chai';
 
-const chaiHttp = require('chai-http');
+import chaiHttp from 'chai-http';
+
 
 chai.use(chaiHttp);
 
 chai.should();
 
 let server = require ('../../app');
-
-const meetUpsDB = require ('../models/meetUpDB.js');
-
-const usersDB = require ('../models/userDB.js');
-
-const questionsDB = require ('../models/questionDB.js');
 
 //testing meetup endpoints
 

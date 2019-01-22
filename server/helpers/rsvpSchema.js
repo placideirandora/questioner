@@ -1,4 +1,4 @@
-const Joi = require ('joi');
+import Joi from 'joi';
 
     
 const rsvpSchema = Joi.object({
@@ -11,4 +11,4 @@ const rsvpSchema = Joi.object({
     
 })
 
-module.exports = rsvpSchema;
+export default rsvpSchema;

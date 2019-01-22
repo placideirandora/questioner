@@ -1,12 +1,12 @@
-const Joi = require ('joi');
+import Joi from 'joi';
 
-const meetUpsDB = require ('../models/meetUpDB.js');
+import meetUpsDB from '../models/meetUpDB.js';
 
-const meetUpSchema = require ('../helpers/meetUpSchema.js');
+import meetUpSchema from '../helpers/meetUpSchema.js';
 
-const rsvpSchema = require ('../helpers/rsvpSchema.js');
+import rsvpSchema from '../helpers/rsvpSchema.js';
 
-const rsvpsDB = require ('../models/rsvpDB.js');
+import rsvpsDB from '../models/rsvpDB.js';
 
 class meetUpControllers
 {
@@ -180,4 +180,4 @@ class meetUpControllers
 
 const meetUpController = new meetUpControllers();
 
-module.exports = meetUpController;
+export default meetUpController;

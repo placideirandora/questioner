@@ -36,7 +36,7 @@ const usersDB = [
 
 //exporting the data structure so that it can be accessed globally
 
-module.exports = usersDB;
+export default usersDB;
 
 
 

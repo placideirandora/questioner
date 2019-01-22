@@ -1,4 +1,4 @@
-const Joi = require ('joi');
+import Joi from 'joi';
 
     
 const meetUpSchema = Joi.object({
@@ -12,4 +12,4 @@ const meetUpSchema = Joi.object({
     
 })
 
-module.exports = meetUpSchema;
+export default meetUpSchema;

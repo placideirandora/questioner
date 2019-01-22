@@ -1,6 +1,6 @@
-const express = require ('express');
+import express from 'express';
 
-const meetUpController = require ('../controllers/meetUpController.js');
+import meetUpController from '../controllers/meetUpController.js';
 
 const meetUpRouter = express.Router();
 
@@ -16,6 +16,6 @@ meetUpRouter.get ('/api/v1/meetups/:id/rsvps/', meetUpController.getMeetUpRSVP);
 
 meetUpRouter.post ('/api/v1/meetups/:id/rsvps/', meetUpController.createMeetUpRSVP);
 
-module.exports = meetUpRouter;
+export default meetUpRouter;
 
 

@@ -1,4 +1,4 @@
-const Joi = require ('joi');
+import Joi from 'joi';
 
     
 const questionSchema = Joi.object({
@@ -14,4 +14,4 @@ const questionSchema = Joi.object({
     
 })
 
-module.exports = questionSchema;
+export default questionSchema;

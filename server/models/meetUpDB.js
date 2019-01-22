@@ -33,4 +33,4 @@ const meetUpsDB = [
 ];
 
 
-module.exports = meetUpsDB;
+export default meetUpsDB;
