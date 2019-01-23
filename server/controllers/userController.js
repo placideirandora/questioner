@@ -1,6 +1,4 @@
-//importing the users database 
-
-import usersDB from '../models/userDB.js';
+import databaseConnection from '../config/database';
 
 import userSchema from '../helpers/userSchema.js';
 
@@ -27,24 +25,39 @@ class userControllers
         {
 
         const addUser = {
-            id: usersDB.length + 1,
+
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             othername: req.body.othername,
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
             username: req.body.username,
-            registered: new Date().toGMTString(),
             isAdmin: req.body.isAdmin
         };
 
-        usersDB.push (addUser);
+        databaseConnection.query('INSERT INTO users(firstname, lastname, othername, email, phoneNumber, username, isAdmin) '+
+        'values($1, $2, $3, $4, $5, $6, $7)',
 
-        return res.status(201).send({
+        [addUser.firstname, addUser.lastname, addUser.othername, addUser.email, addUser.phoneNumber, addUser.username, 
+            addUser.isAdmin])
+
+         .then ( users => {
+
+            return res.status(201).send({
+
                 "status": 201,
-                "success": "user added successfully",
-                "data": addUser
-        })
+                "success": "user created successfully",
+        
+
+        });
+
+         })
+         
+         .catch( error => {
+
+             console.log(error);
+         })
+
     }
 }
 
@@ -52,11 +65,26 @@ class userControllers
     getAllUsers (req, res)
     {
 
-        return res.status(200).send({
-            "status": 200,
-            "success": "users retrieved successfully",
-            "data": usersDB
-        });
+        databaseConnection.query ('SELECT * FROM users')
+
+        .then( users => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "users retrieved successfully",
+                "data": users.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+
+       
     }
 
 
@@ -65,23 +93,25 @@ class userControllers
 
         const gsuid = parseInt(req.params.id, 10);
 
-        usersDB.map ((user, index) => {
+        databaseConnection.query ('SELECT * FROM users WHERE id = ' + gsuid)
 
-            if (user.id === gsuid)
-            {
-                return res.status(200).send({
-                    "status": 200,
-                    "success": "user retrieved successfully",
-                    "data": user
-                });
-            }
-        });
+        .then( users => {
 
+            return res.status(200).send({
 
-        return res.status(404).send({
-            "status": 404,
-            "error": "user not found"
-        });
+                "status": 200,
+                "success": "user retrieved successfully",
+                "data": users.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+       
     }
 }
 

@@ -6,8 +6,10 @@ const connection = new Pool({
     host: 'localhost',
     database: 'questioner',
     password: '1234567890',
-    port: 5000
+    port: 5000,
 
 });
+
+
 
 export default connection;

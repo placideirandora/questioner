@@ -10,7 +10,6 @@ userRouter.get ('/api/v1/users/:id/', userController.getSpecificUser);
 
 userRouter.post ('/api/v1/users/', userController.createUser);
 
-
 export default userRouter;
 
 

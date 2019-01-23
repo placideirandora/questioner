@@ -34,7 +34,7 @@ app.use(userRouter);
 
 app.use(meetUpRouter);
 
-app.use(questionRouter);
+app.use(questionRouter)
 
 //setting up the server's port
 
