@@ -2,6 +2,10 @@ import databaseConnection from '../config/database';
 
 import userSchema from '../helpers/userSchema.js';
 
+import jwt from 'jsonwebtoken';
+
+import bcrypt from 'bcryptjs';
+
 import Joi from 'joi';
 
 class userControllers
@@ -32,24 +36,32 @@ class userControllers
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
             username: req.body.username,
-            isAdmin: req.body.isAdmin
+            password: req.body.password
         };
 
-        databaseConnection.query('INSERT INTO users(firstname, lastname, othername, email, phoneNumber, username, isAdmin) '+
-        'values($1, $2, $3, $4, $5, $6, $7)',
+        databaseConnection.query('INSERT INTO users(firstname, lastname, othername, email, phoneNumber, username, password) '+
+        'values($1, $2, $3, $4, $5, $6, $7) returning *',
 
         [addUser.firstname, addUser.lastname, addUser.othername, addUser.email, addUser.phoneNumber, addUser.username, 
-            addUser.isAdmin])
+            addUser.password])
 
          .then ( users => {
 
-            return res.status(201).send({
+            jwt.sign({users: users.rows[0] }, 'secret-key', (error, token) => {
 
-                "status": 201,
-                "success": "user created successfully",
-        
+                return res.status(201).send({
 
-        });
+                    "status": 201,
+                    "success": "user registered successfully",
+                    token: token,
+                    "user": users.rows
+            
+    
+            });
+
+            } )
+
+           
 
          })
          
@@ -61,11 +73,58 @@ class userControllers
     }
 }
 
+    loginUser(req, res)
+    {
+
+        const email = req.body.email;
+
+       databaseConnection.query ('SELECT * FROM users WHERE email = $1 ' , [email])
+        
+        .then( users => {
+
+            if (!users.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'user not found',
+                });
+
+            }
+            const payload={
+                username:users.rows[0].username,
+                email:users.rows[0].email,
+                id:users.rows[0].id
+            };
+            jwt.sign(payload,'secret-key',{expiresIn:'2d'},(er,token)=>{
+                if(er){
+                    console.log(er);
+                };
+             
+            return res.status(200).send({
+                status: 200,
+                success: "user logged in successfully",
+                token:token,
+                user: users.rows,
+
+
+            });
+            })
+        })
+
+
+
+
+    }
+
+
+
 
     getAllUsers (req, res)
     {
 
-        databaseConnection.query ('SELECT * FROM users')
+
+
+    databaseConnection.query ('SELECT * FROM users')
 
         .then( users => {
 
@@ -84,8 +143,10 @@ class userControllers
 
         })
 
-       
     }
+
+       
+    
 
 
     getSpecificUser (req, res)
@@ -93,9 +154,18 @@ class userControllers
 
         const gsuid = parseInt(req.params.id, 10);
 
-        databaseConnection.query ('SELECT * FROM users WHERE id = ' + gsuid)
-
+       databaseConnection.query ('SELECT * FROM users WHERE id = ' + gsuid)
+        
         .then( users => {
+
+            if (!users.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'user not found',
+                });
+
+            }
 
             return res.status(200).send({
 

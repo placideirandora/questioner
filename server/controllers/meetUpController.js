@@ -35,7 +35,7 @@ class meetUpControllers
         };
 
         databaseConnection.query('INSERT INTO meetups(topic, location, happeningon, tags, images) '+
-        'values($1, $2, $3, $4, $5)',
+        'values($1, $2, $3, $4, $5) returning *',
 
         [addMeetUp.topic, addMeetUp.location, addMeetUp.happeningOn, addMeetUp.tags, addMeetUp.images])
 
