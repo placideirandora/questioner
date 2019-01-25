@@ -15,10 +15,14 @@
 - POST /USERS/AUTH/LOGIN
 - DELETE /MEETUPS/ID
 
+# INSTALLATION
+
+- NPM INSTALL 
+
 
 # API Tools used
 
-#Language
+# Language
 
 - Javascript
 
