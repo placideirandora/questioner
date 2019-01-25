@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 import databaseConnection from '../config/database';
 
-import questionsDB from '../models/questionDB.js';
 
 import questionSchema from '../helpers/questionSchema.js';
 
