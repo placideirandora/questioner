@@ -1,8 +1,10 @@
-//importing the users database 
-
-import usersDB from '../models/userDB.js';
+import databaseConnection from '../config/database';
 
 import userSchema from '../helpers/userSchema.js';
+
+import jwt from 'jsonwebtoken';
+
+import bcrypt from 'bcryptjs';
 
 import Joi from 'joi';
 
@@ -27,37 +29,124 @@ class userControllers
         {
 
         const addUser = {
-            id: usersDB.length + 1,
+
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             othername: req.body.othername,
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
             username: req.body.username,
-            registered: new Date().toGMTString(),
-            isAdmin: req.body.isAdmin
+            password: req.body.password
         };
 
-        usersDB.push (addUser);
+        databaseConnection.query('INSERT INTO users(firstname, lastname, othername, email, phoneNumber, username, password) '+
+        'values($1, $2, $3, $4, $5, $6, $7) returning *',
 
-        return res.status(201).send({
-                "status": 201,
-                "success": "user added successfully",
-                "data": addUser
-        })
+        [addUser.firstname, addUser.lastname, addUser.othername, addUser.email, addUser.phoneNumber, addUser.username, 
+            addUser.password])
+
+         .then ( users => {
+
+            jwt.sign({users: users.rows[0] }, 'secret-key', (error, token) => {
+
+                return res.status(201).send({
+
+                    "status": 201,
+                    "success": "user registered successfully",
+                    token: token,
+                    "user": users.rows
+            
+    
+            });
+
+            } )
+
+           
+
+         })
+         
+         .catch( error => {
+
+             console.log(error);
+         })
+
     }
 }
+
+    loginUser(req, res)
+    {
+
+        const email = req.body.email;
+
+       databaseConnection.query ('SELECT * FROM users WHERE email = $1 ' , [email])
+        
+        .then( users => {
+
+            if (!users.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'user not found',
+                });
+
+            }
+            const payload={
+                username:users.rows[0].username,
+                email:users.rows[0].email,
+                id:users.rows[0].id
+            };
+            jwt.sign(payload,'secret-key',{expiresIn:'2d'},(er,token)=>{
+                if(er){
+                    console.log(er);
+                };
+             
+            return res.status(200).send({
+                status: 200,
+                success: "user logged in successfully",
+                token:token,
+                user: users.rows,
+
+
+            });
+            })
+        })
+
+
+
+
+    }
+
+
 
 
     getAllUsers (req, res)
     {
 
-        return res.status(200).send({
-            "status": 200,
-            "success": "users retrieved successfully",
-            "data": usersDB
-        });
+
+
+    databaseConnection.query ('SELECT * FROM users')
+
+        .then( users => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "users retrieved successfully",
+                "data": users.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+
     }
+
+       
+    
 
 
     getSpecificUser (req, res)
@@ -65,23 +154,34 @@ class userControllers
 
         const gsuid = parseInt(req.params.id, 10);
 
-        usersDB.map ((user, index) => {
+       databaseConnection.query ('SELECT * FROM users WHERE id = ' + gsuid)
+        
+        .then( users => {
 
-            if (user.id === gsuid)
-            {
-                return res.status(200).send({
-                    "status": 200,
-                    "success": "user retrieved successfully",
-                    "data": user
+            if (!users.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'user not found',
                 });
+
             }
-        });
 
+            return res.status(200).send({
 
-        return res.status(404).send({
-            "status": 404,
-            "error": "user not found"
-        });
+                "status": 200,
+                "success": "user retrieved successfully",
+                "data": users.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+       
     }
 }
 

@@ -1,14 +1,14 @@
 import Joi from 'joi';
 
     
-const questionSchema = Joi.object({
+const commentSchema = Joi.object({
             
     
     title: Joi.string().required(),
     body: Joi.string().required(),
-    
+    comment: Joi.string().required(),
    
     
 })
 
-export default questionSchema;
+export default commentSchema;

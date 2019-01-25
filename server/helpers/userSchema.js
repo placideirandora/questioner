@@ -9,8 +9,10 @@ const userSchema = Joi.object({
     email: Joi.string().email().required(),
     phoneNumber: Joi.string().required(),
     username: Joi.string().required(),
-    isAdmin: Joi.boolean().required()
+    password: Joi.string().required()
     
 })
 
 export default userSchema;
+
+

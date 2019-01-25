@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+import databaseConnection from '../config/database';
+
 import questionsDB from '../models/questionDB.js';
 
 import questionSchema from '../helpers/questionSchema.js';
@@ -27,27 +29,37 @@ class questionControllers
         {
 
         const addQuestion = {
-            id: questionsDB.length + 1,
-            createdOn: new Date().toGMTString(),
             createdBy: req.body.createdBy,
             meetup: req.body.meetup,
             title: req.body.title,
             body: req.body.body,
-            upvotes: 0,
-            downvotes: 0
+        
         
         };
 
 
-        questionsDB.push (addQuestion);
+        databaseConnection.query('INSERT INTO questions(createdby, meetup, title, body) '+
+        'values($1, $2, $3, $4)',
 
+        [addQuestion.createdBy, addQuestion.meetup, addQuestion.title, addQuestion.body])
 
-        return res.status(201).send({
+         .then ( questions => {
+
+            return res.status(201).send({
+
                 "status": 201,
                 "success": "question posted successfully",
-                "data": addQuestion
+        
 
-        })
+        });
+
+         })
+         
+         .catch( error => {
+
+             console.log(error);
+         })
+
     }
 
 }
@@ -56,36 +68,54 @@ class questionControllers
      getAllQuestions (req, res)
      {
 
-         return res.status(200).send({
-             "status": 200,
-             "success": "questions retrieved successfully",
-             "data": questionsDB
-         });
+        databaseConnection.query ('SELECT * FROM questions')
+
+        .then( questions => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "users retrieved successfully",
+                "data": questions.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+
      }
  
 
  
      getSpecificQuestion(req, res)
      {
-        const id = parseInt(req.params.id, 10);
+        const qid = parseInt(req.params.id, 10);
  
-         questionsDB.map ((question, index) => {
-             if (question.id === id)
-             {
-                 return res.status(200).send({
-                     "status": 200,
-                     "success": "question retrieved successfully",
-                     "data": question
-                 });
-             }
-         });
- 
-        return res.status(404).send({
-             "status": 404,
-             "error": "question not found"
-             
-         });
-     }
+        databaseConnection.query ('SELECT * FROM questions WHERE id = ' + qid)
+
+        .then( questions => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "user retrieved successfully",
+                "data": questions.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+       
+    }
+     
 
 
      upvoteQuestion (req, res)

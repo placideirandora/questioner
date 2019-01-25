@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import meetUpsDB from '../models/meetUpDB.js';
+import databaseConnection from '../config/database';
 
 import meetUpSchema from '../helpers/meetUpSchema.js';
 
@@ -27,56 +27,86 @@ class meetUpControllers
         {
         
         const addMeetUp = {
-            id: meetUpsDB.length +1,
-            createdOn: new Date().toGMTString(),
-            location: req.body.location,
-            images: req.body.images,
             topic: req.body.topic,
+            location: req.body.location,
             happeningOn: req.body.happeningOn,
             tags: req.body.tags,
+            images: req.body.images,
         };
 
-        meetUpsDB.push (addMeetUp);
+        databaseConnection.query('INSERT INTO meetups(topic, location, happeningon, tags, images) '+
+        'values($1, $2, $3, $4, $5) returning *',
 
-        return res.status(201).send({
+        [addMeetUp.topic, addMeetUp.location, addMeetUp.happeningOn, addMeetUp.tags, addMeetUp.images])
+
+         .then ( meetups => {
+
+            return res.status(201).send({
 
                 "status": 201,
                 "success": "meetup created successfully",
-                "data": addMeetUp
+                "data": meetups.rows
+        
 
         });
-    }
+
+         })
+         
+         .catch( error => {
+
+             console.log(error);
+         })
+
+        }
 }
 
     getAllMeetUps (req, res)
     {   
 
-        return res.status(200).send({
-            "status": 200,
-            "success": "meetups retrieved successfully",
-            "data": meetUpsDB
-        });
+        databaseConnection.query ('SELECT * FROM meetups')
+
+        .then( meetups => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "meetups retrieved successfully",
+                "data": meetups.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+
     }
 
     getSpecificMeetUp(req, res)
     {
-        const gsmid = parseInt(req.params.id, 10);
+        const mid = parseInt(req.params.id, 10);
 
-        meetUpsDB.map ((meetup, index) => {
-            if (meetup.id === gsmid)
-            {
-                return res.status(200).send({
-                    "status": 200,
-                    "success": "meetup retrieved successfully",
-                    "data": meetup,
-                });
-            }
-        });
+        databaseConnection.query ('SELECT * FROM meetups WHERE id = ' + mid)
 
-       return res.status(404).send({
-           "status": 404,
-            "error": "meetup not found"
-        });
+        .then( meetups => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "meetup retrieved successfully",
+                "data": meetups.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+    
     }
 
 
