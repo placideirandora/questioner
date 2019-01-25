@@ -14,3 +14,44 @@
 - POST /USERS/AUTH/SIGNUP
 - POST /USERS/AUTH/LOGIN
 - DELETE /MEETUPS/ID
+
+
+# API Tools used
+
+#Language
+
+- Javascript
+
+# Server Environment
+
+ - NodeJS (Run-time environment for running JS codes)
+ 
+# Framework
+ 
+ - Express
+ 
+# Testing Framework
+
+ - Mocha and Chai
+ 
+# Continuous Integration
+
+- Travis CI
+
+# Maintainability
+
+- Code Climate
+
+# Test Coverage
+
+- nyc
+
+# Deployment
+
+- Heroku
+
+
+
+
+
+
