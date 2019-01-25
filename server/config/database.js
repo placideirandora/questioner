@@ -14,17 +14,6 @@ const pool = new Pool({
 const connect = async () => await pool.connect();
 
 const databaseTables = async () => {
-  const admininfo = [
-    process.env.ADMIN_FIRSTNAME,
-    process.env.ADMIN_LASTNAME,
-    process.env.ADMIN_OTHER,
-    process.env.ADMIN_EMAIL,
-    process.env.ADMIN_PHONENUMBER,
-    process.env.ADMIN_USERNAME,
-    process.env.ADMIN_PASSWORD,
-    process.env.IS_ADMIN,
-  ];
-
 
 const user = `CREATE TABLE IF NOT EXISTS
 users(
@@ -90,16 +79,6 @@ pool.query(meetup);
   
 };
 
-//
-
-const dropTables = async () => {
-  const dropAlltables = 'DROP TABLE IF EXISTS rsvp CASCADE';
-
-  const connection = await connect();
-  await connection.query(dropAlltables);
-};
-
-databaseTables();
 
 
 export default pool;
