@@ -83,6 +83,8 @@ pool.query(rsvp);
 
 pool.query(question);
 
+databaseTables();
+
   
 };
 
