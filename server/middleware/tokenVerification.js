@@ -10,7 +10,7 @@ module.exports = {
 
             return res.status(401).send({error:'authentication failed'});
 
-        }
+}
 
         const split = token.split(' ');
 
@@ -20,7 +20,7 @@ module.exports = {
 
                 return res.status(401).send({error:'Failed to decode the token'});
 
-            }
+}
 
             if(decoded){
 
@@ -28,11 +28,11 @@ module.exports = {
 
                 next();
 
-            } else {
+} else {
 
-                return res.status(401).json({error:'authentication failed'}); 
+                return res.status(401).json({error:'authentication failed'});
 
-            }
-        })
-    }
+}
+})
+}
 }

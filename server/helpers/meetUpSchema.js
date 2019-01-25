@@ -12,4 +12,5 @@ const meetUpSchema = Joi.object({
     
 })
 
+
 export default meetUpSchema;

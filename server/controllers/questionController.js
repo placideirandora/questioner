@@ -169,6 +169,7 @@ class questionControllers
      downvoteQuestion (req, res)
      {
            
+        
         const dqid = parseInt(req.params.id, 10);
         const arrIndex = questionsDB.findIndex(q => q.id === parseInt(req.params.id, 10));
 

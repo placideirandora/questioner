@@ -2,6 +2,8 @@ import databaseConnection from '../config/database';
 
 import userSchema from '../helpers/userSchema.js';
 
+import loginSchema from '../helpers/loginSchema.js';
+
 import jwt from 'jsonwebtoken';
 
 import bcrypt from 'bcryptjs';
@@ -36,13 +38,16 @@ class userControllers
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
             username: req.body.username,
-            password: req.body.password
+            password: bcrypt.hashSync(req.body.password, 10)
         };
+
+        //const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
         databaseConnection.query('INSERT INTO users(firstname, lastname, othername, email, phoneNumber, username, password) '+
         'values($1, $2, $3, $4, $5, $6, $7) returning *',
 
-        [addUser.firstname, addUser.lastname, addUser.othername, addUser.email, addUser.phoneNumber, addUser.username, 
+        [addUser.firstname, addUser.lastname, addUser.othername,
+             addUser.email, addUser.phoneNumber, addUser.username, 
             addUser.password])
 
          .then ( users => {
@@ -76,42 +81,79 @@ class userControllers
     loginUser(req, res)
     {
 
-        const email = req.body.email;
+        const { error } = Joi.validate (req.body, loginSchema);
 
-       databaseConnection.query ('SELECT * FROM users WHERE email = $1 ' , [email])
+        if (error)
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": error.details[0].message
+            })
+        }
+
+        else 
+
+        {
+
+        const email = req.body.email;
+        const pass = req.body.password;
+
+       databaseConnection.query ('SELECT * FROM users WHERE email = $1' , 
+       [email])
         
         .then( users => {
 
-            if (!users.rows.length) {
-
+            if (users.rows === undefined || users.rows.length == 0)
+            {
                 return res.status(404).send({
-                    status: 404,
-                    error: 'user not found',
-                });
-
+                    error: "email does not exist"
+                })
             }
-            const payload={
-                username:users.rows[0].username,
-                email:users.rows[0].email,
-                id:users.rows[0].id
-            };
-            jwt.sign(payload,'secret-key',{expiresIn:'2d'},(er,token)=>{
-                if(er){
-                    console.log(er);
-                };
-             
-            return res.status(200).send({
-                status: 200,
-                success: "user logged in successfully",
-                token:token,
-                user: users.rows,
 
+            else
+            {
+                const passi = bcrypt.compareSync(pass, users.rows[0].password)
 
-            });
-            })
+                if (passi)
+                {
+                    const payload={
+
+                        username:users.rows[0].username,
+                        email:users.rows[0].email,
+                        id:users.rows[0].id
+        
+                    };
+        
+                    jwt.sign(payload,'secret-key',{expiresIn:'2d'},(er,token)=>{
+                        if(er){
+                            console.log(er);
+                        };
+                     
+                    return res.status(200).send({
+                        status: 200,
+                        success: "user logged in successfully",
+                        token:token,
+                        user: users.rows,
+        
+        
+                    });
+                    })
+                }
+
+                else
+                {
+                    return res.status(401).send({
+                        error: "incorrect password"
+                    })
+                }
+
+                
+            }
+
+           
         })
 
-
+    }
 
 
     }

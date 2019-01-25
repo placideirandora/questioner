@@ -15,13 +15,14 @@ const connect = async () => await pool.connect();
 
 const databaseTables = async () => {
 
+
 const user = `CREATE TABLE IF NOT EXISTS
 users(
     id SERIAL PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
     othername VARCHAR(50),
-    email VARCHAR(50) UNIQUE NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     phonenumber VARCHAR(20) UNIQUE NULL,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
@@ -76,9 +77,16 @@ pool.query(user);
 
 pool.query(meetup);
 
+pool.query(vote);
+
+pool.query(rsvp);
+
+pool.query(question);
+
   
 };
 
 
 
 export default pool;
+

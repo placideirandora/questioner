@@ -10,3 +10,4 @@ const rsvpSchema = Joi.object({
 })
 
 export default rsvpSchema;
+

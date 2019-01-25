@@ -4,9 +4,11 @@ import databaseConnection from '../config/database';
 
 import meetUpSchema from '../helpers/meetUpSchema.js';
 
-import rsvpSchema from '../helpers/rsvpSchema.js';
+import questionSchema from '../helpers/questionSchema';
 
-import rsvpsDB from '../models/rsvpDB.js';
+import rsvpSchema from '../helpers/rsvpSchema.js'
+
+import commentSchema from '../helpers/commentSchema';
 
 class meetUpControllers
 {
@@ -92,6 +94,15 @@ class meetUpControllers
 
         .then( meetups => {
 
+            if (!meetups.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'meetup not found',
+                });
+
+            }
+
             return res.status(200).send({
 
                 "status": 200,
@@ -111,20 +122,53 @@ class meetUpControllers
 
 
 
+    deleteSpecificMeetUp(req, res)
+    {
+        
+        const mid = parseInt(req.params.id, 10);
+
+        databaseConnection.query ('SELECT * FROM meetups WHERE id = ' + mid)
+
+        .then( meetups => {
+
+            if (!meetups.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'meetup not found',
+                });
+
+            }
+
+            databaseConnection.query('DELETE FROM meetups WHERE id =' + mid);
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "meetup deleted successfully",
+        
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+
+
+    }
+
+
+
+
 
     createMeetUpRSVP(req, res)
     {
 
 
-    const meetup = meetUpsDB.find(m => m.id === parseInt(req.params.id, 10));
-    if (!meetup) {
-        return res.status(404).send({
-            status: 404,
-            error: "meetup not found"
-        });
-    }
-    
-    const { error } = Joi.validate (req.body, rsvpSchema);
+        const { error } = Joi.validate (req.body, rsvpSchema);
 
         if (error)
         {
@@ -139,44 +183,33 @@ class meetUpControllers
         {
 
 
-    const rsvp = {
+            const respo = req.body.response;
+
+            const meetupId = req.params.id;
+            const userId = req.user.id;
     
-        meetup: req.body.meetup,
-        topic: req.body.topic,
-        status: req.body.response,
-    };
     
-    rsvpsDB.push(rsvp);
+    
+            databaseConnection.query('INSERT INTO rsvps(meetup, userid, response) '+
+            'values($1, $2, $3) returning *',
+    
+            [meetupId, userId, respo])
+    
+             .then ( rsvp => {
+    
+                return res.status(201).send({
+    
+                    "status": 201,
+                    "success": "rsvp response submitted successfully",
+                    "data": rsvp.rows
+            
+    
+            });
+    
+             })
+        
 
-    return res.status(201).send({
-
-        "status": 201,
-        "success": "meetup rsvp created successfully",
-        "data": rsvp
-});
-
-        }
-    }
-
-    getMeetUpRSVP(req, res)
-    {
-        const meetup = meetUpsDB.find(m => m.id === parseInt(req.params.id, 10));
-    if (!meetup) {
-        return res.status(404).send({
-            status: 404,
-            error: "meetup not found"
-        });
-    }
-
-
-    return res.status(200).send({
-        "status": 200,
-        "success": "meetup rsvp retrieved successfully",
-        "data": rsvpsDB
-    });
-
-
-
+          }
 
     }
 
@@ -184,28 +217,206 @@ class meetUpControllers
     getUpcomingMeetUps(req, res)
     {
         
-    meetUpsDB.sort((a, b) => {
-        const result = new Date(a.happeningOn) - new Date(b.happeningOn);
-        return result;
-    });
-    const data = [];
-    meetUpsDB.forEach((meetup) => {
-        
-        if (new Date(meetup.happeningOn) >= new Date()) {
-            data.push(meetup);
+        databaseConnection.query ('SELECT * FROM meetups ORDER BY happeningon ASC')
+
+        .then( meetups => {
+
+            return res.status(200).send({
+
+                "status": 200,
+                "success": "upcoming meetups retrieved successfully",
+                "data": meetups.rows
+
+            });
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+    }
+
+    createQuestion(req, res)
+    {
+         const { error } = Joi.validate (req.body, questionSchema);
+
+        if (error)
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": error.details[0].message
+            })
         }
-    });
+
+        else 
+
+        {
+
+        const addQuestion = {
+            
+        
+            title: req.body.title,
+            body: req.body.body
+        };
+
+        const meetupId = req.params.id;
+        const userId = req.user.id;
 
 
-    return res.status(200).send({
-        "status": 200,
-        "success": "upcoming meetups",
-        data
-    });
+
+        databaseConnection.query('INSERT INTO questions(createdby, meetup, title, body) '+
+        'values($1, $2, $3, $4) returning *',
+
+        [userId, meetupId, addQuestion.title, addQuestion.body])
+
+         .then ( questions => {
+
+            return res.status(201).send({
+
+                "status": 201,
+                "success": "question posted successfully",
+                "data": questions.rows
+        
+
+        });
+
+         })
+         
+         .catch( error => {
+
+             console.log(error);
+         })
+
+    }
+
+
+}
+
+upvoteQuestion (req, res)
+{
+    const userid = req.user.id;
+    const qid = req.params.id;
+        
+
+        databaseConnection.query ('SELECT * FROM questions WHERE id = ' + qid)
+
+        .then( questions => {
+
+            if (!questions.rows.length) {
+
+                return res.status(404).send({
+                    status: 404,
+                    error: 'question not found',
+                });
+
+            }
+
+            let upvotes = + 1;
+            databaseConnection.query("INSERT INTO votes(userid,question,upvotes,downvotes)VALUES($1,$2,$3,$4) returning *",
+              [userid, qid, upvotes, 0])
+              .then(voting => res.status(200).json({ 
+                  success: true, message: "question upvoted successfully." ,
+                  votes: voting.rows
+                }))
+              .catch((er) => {
+                console.log(er);
+              });
+
+          
+        })
+
+        .catch( error => {
+
+            console.log(error);
+
+        })
+    
 }
 
 
+commentQuestion(req, res)
+{
+
+
+    const { error } = Joi.validate (req.body, questionSchema);
+
+    if (error)
+    {
+        return res.status(400).send({
+            "status": 400,
+            "error": error.details[0].message
+        })
+    }
+
+    else 
+
+    {
+
+        const qid = req.params.id;
+
+
+        const addComment = {
+            title: req.body.title,
+            body: req.body.body,
+            comment: req.body.comment
+
+
+        }
+
+
+
+        databaseConnection.query('INSERT INTO comments(questionid, title, body, comment) '+
+        'values($1, $2, $3, $4) returning *',
+
+        [qid, addComment.title, addComment.body, addComment.comment])
+
+         .then ( comment => {
+
+            return res.status(201).send({
+
+                "status": 201,
+                "success": "comment posted successfully",
+                "data": comment.rows
+        
+
+        });
+
+         })
     
+
+      }
+
+}
+
+getAllQuestions (req, res)
+{   
+    const meetupId = req.body.id;
+
+    databaseConnection.query ('SELECT * FROM questions WHERE meetup ='+ meetupId)
+
+    .then( questions => {
+
+        return res.status(200).send({
+
+            "status": 200,
+            "success": "questions retrieved successfully",
+            "data": questions.rows
+
+        });
+    })
+
+    .catch( error => {
+
+        console.log(error);
+
+    })
+
+}
+
+
+
+
 }
 
 const meetUpController = new meetUpControllers();
