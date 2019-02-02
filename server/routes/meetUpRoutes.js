@@ -20,6 +20,10 @@ meetUpRouter.post ('/api/v1/meetups/', tokenVerification.verifyToken, meetUpCont
 
 meetUpRouter.post ('/api/v1/meetups/:id/rsvps/', tokenVerification.verifyToken, meetUpController.createMeetUpRSVP);
 
+//meetUpRouter.post ('/api/v1/meetups/:id/rsvps/', tokenVerification.verifyToken, meetUpController.createMeetUpTags);
+
+//meetUpRouter.post ('/api/v1/meetups/:id/rsvps/', tokenVerification.verifyToken, meetUpController.createMeetUpImages);
+
 meetUpRouter.post ('/api/v1/meetups/:id/questions/', tokenVerification.verifyToken, meetUpController.createQuestion);
 
 meetUpRouter.get ('/api/v1/meetups/:id/questions/', tokenVerification.verifyToken, meetUpController.getAllQuestions);
