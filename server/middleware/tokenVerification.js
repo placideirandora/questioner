@@ -8,7 +8,7 @@ module.exports = {
 
         if(!token) {
 
-            return res.status(401).send({error:'authentication failed'});
+            return res.status(403).send({error:'unauthorized access. login first!'});
 
         }
 
@@ -30,7 +30,7 @@ module.exports = {
 
             } else {
 
-                return res.status(401).json({error:'authentication failed'}); 
+                return res.status(401).json({error:'unauthorized access. login first!'}); 
 
             }
         })
