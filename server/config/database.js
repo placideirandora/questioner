@@ -62,44 +62,56 @@ questions(
     meetup INTEGER REFERENCES meetups(id),
     title VARCHAR(50) NOT NULL,
     body TEXT NOT NULL,
-    upvote INTEGER DEFAULT 0,
-    downvote INTEGER DEFAULT 0
+    upvotes INTEGER DEFAULT 0,
+    downvotes INTEGER DEFAULT 0
 );`;
 
   const rsvp = `CREATE TABLE IF NOT EXISTS
-rsvp(
+rsvps(
     id SERIAL PRIMARY KEY,
     meetup INTEGER REFERENCES meetups(id),
     userid INTEGER REFERENCES users(id),
-    response VARCHAR(10) NOT NULL
+    status VARCHAR(10) NOT NULL
 );`;
 
   const vote = `CREATE TABLE IF NOT EXISTS
 votes(
   id SERIAL PRIMARY KEY,
   userid INTEGER REFERENCES users(id),
-  question INTEGER REFERENCES questions(id),
-  upvote INTEGER DEFAULT 0,
-  downvote INTEGER DEFAULT 0
+  questionid INTEGER REFERENCES questions(id),
+  upvotes INTEGER DEFAULT 0,
+  downvotes INTEGER DEFAULT 0
+);`;
+
+const comment = `CREATE TABLE IF NOT EXISTS
+comments(
+  id SERIAL PRIMARY KEY,
+  questionid INTEGER REFERENCES questions(id),
+  comment TEXT NOT NULL
 );`;
 
 pool.query(user);
 
 pool.query(meetup);
 
+pool.query(vote);
+
+pool.query(rsvp);
+
+pool.query(question);
+
+pool.query(comment);
+
+
+
   
 };
 
-//
 
-const dropTables = async () => {
-  const dropAlltables = 'DROP TABLE IF EXISTS rsvp CASCADE';
-
-  const connection = await connect();
-  await connection.query(dropAlltables);
-};
 
 databaseTables();
+
+
 
 
 export default pool;
