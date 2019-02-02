@@ -34,7 +34,16 @@ app.use(userRouter);
 
 app.use(meetUpRouter);
 
-app.use(questionRouter)
+app.use(questionRouter);
+
+// Error handling
+app.use((req, res, next) => {
+    
+    res.status(404).send({
+        "error": "Endpoint Not Found!"
+    })
+
+  });
 
 //setting up the server's port
 
