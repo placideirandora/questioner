@@ -4,8 +4,6 @@ import userRouter from './server/routes/userRoutes';
 
 import meetUpRouter from './server/routes/meetUpRoutes';
 
-import questionRouter from './server/routes/questionRoutes';
-
 import path from 'path';
 
 import bodyParser from 'body-parser';
@@ -33,8 +31,6 @@ app.use (bodyParser.urlencoded({extended: false}));
 app.use(userRouter);
 
 app.use(meetUpRouter);
-
-app.use(questionRouter);
 
 // Error handling
 app.use((req, res, next) => {
