@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import Joi from 'joi';
+import { isNull } from 'util';
 
 class userControllers
 
@@ -59,7 +60,7 @@ class userControllers
                     "status": 201,
                     "success": "user registered successfully",
                     token: token,
-                    "user": users.rows
+                    "user": users.rows[0].email
             
     
             });
@@ -88,6 +89,14 @@ class userControllers
             return res.status(400).send({
                 "status": 400,
                 "error": error.details[0].message
+            })
+        }
+
+       else if (req.body.password === " ")
+        {
+            return res.status(400).send({
+                "status": 400,
+                "error": "password is empty. please, enter your password!"
             })
         }
 
@@ -133,7 +142,7 @@ class userControllers
                         status: 200,
                         success: "user logged in successfully",
                         token:token,
-                        user: users.rows,
+                        user: users.rows[0].username
         
         
                     });

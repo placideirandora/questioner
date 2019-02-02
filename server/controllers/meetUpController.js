@@ -185,23 +185,29 @@ class meetUpControllers
 
             const respo = req.body.response;
 
-            const meetupId = req.params.id;
+            const meetupId = parseInt(req.params.id, 10);
             const userId = req.user.id;
     
     
     
-            databaseConnection.query('INSERT INTO rsvps(meetup, userid, response) '+
-            'values($1, $2, $3) returning *',
+            databaseConnection.query('INSERT INTO rsvps(meetup, userid, status) '+
+            'values($1, $2, $3)',
     
-            [meetupId, userId, respo])
+            [meetupId, userId, respo]),
+
+            databaseConnection.query('SELECT status FROM rsvps WHERE meetup =' + meetupId)
+
+            databaseConnection.query('SELECT topic FROM meetups WHERE id =' + meetupId)
     
              .then ( rsvp => {
     
                 return res.status(201).send({
     
-                    "status": 201,
+                    "STATUS": 201,
                     "success": "rsvp response submitted successfully",
-                    "data": rsvp.rows
+                    "meetup": meetupId,
+                    "topic": rsvp.rows[0].topic,
+                    "status": respo
             
     
             });
@@ -212,6 +218,9 @@ class meetUpControllers
           }
 
     }
+
+
+    
 
 
     getUpcomingMeetUps(req, res)
@@ -260,7 +269,7 @@ class meetUpControllers
             body: req.body.body
         };
 
-        const meetupId = req.params.id;
+        const meetupId = parseInt(req.params.id, 10);
         const userId = req.user.id;
 
 
@@ -276,7 +285,10 @@ class meetUpControllers
 
                 "status": 201,
                 "success": "question posted successfully",
-                "data": questions.rows
+                "user": userId,
+                "meetup": meetupId,
+                "title": addQuestion.title,
+                "body": addQuestion.body
         
 
         });
@@ -293,10 +305,14 @@ class meetUpControllers
 
 }
 
+
+
 upvoteQuestion (req, res)
 {
-    const userid = req.user.id;
+
     const qid = req.params.id;
+    const userId = req.user.id;
+    const meetupId = parseInt(req.params.id, 10);
         
 
         databaseConnection.query ('SELECT * FROM questions WHERE id = ' + qid)
@@ -312,15 +328,56 @@ upvoteQuestion (req, res)
 
             }
 
-            let upvotes = + 1;
-            databaseConnection.query("INSERT INTO votes(userid,question,upvotes,downvotes)VALUES($1,$2,$3,$4) returning *",
-              [userid, qid, upvotes, 0])
+          /*  databaseConnection.query ("SELECT title, body FROM questions WHERE id =" + qid)
+        
+            .then( questions => {
+    
+                if (!questions.rows.length) {
+    
+                    return res.status(404).send({
+                        status: 404,
+                        error: 'user not found',
+                    });
+    
+                }
+    
+                return res.status(200).send({
+    
+                    "success": "title and body retrieved successfully",
+                    "data": questions.rows
+    
+                });
+            }) */
+
+            
+
+          let upvota = 0;
+            
+            let upvote = databaseConnection.query ("UPDATE votes SET upvotes = upvotes + 1 WHERE questionid =" + qid)
+
+            let upvotes = databaseConnection.query("SELECT upvotes FROM votes WHERE questionid =" + qid +"AND "+upvota  +"=upvotes");
+
+            databaseConnection.query("INSERT INTO votes(userid,questionid,upvotes,downvotes)VALUES($1,$2,$3,$4) returning *",
+              [userId, qid, upvote, 0])
+
+              databaseConnection.query ("SELECT title, body FROM questions WHERE id =" + qid)
+
               .then(voting => res.status(200).json({ 
-                  success: true, message: "question upvoted successfully." ,
-                  votes: voting.rows
+
+                  "success": 200, 
+                  "message": "question upvoted successfully.",
+                  "meetup": meetupId,
+                  "title": voting.rows[0].title,
+                  "body": voting.rows[0].body,
+                  "votes": upvota
+
+                  
                 }))
+
               .catch((er) => {
+
                 console.log(er);
+
               });
 
           
@@ -353,31 +410,35 @@ commentQuestion(req, res)
 
     {
 
-        const qid = req.params.id;
+        const qid = parseInt( req.params.id, 0);
 
 
-        const addComment = {
-            title: req.body.title,
-            body: req.body.body,
-            comment: req.body.comment
+        
+
+            const comment = req.body.comment;
 
 
-        }
+        
 
 
 
-        databaseConnection.query('INSERT INTO comments(questionid, title, body, comment) '+
-        'values($1, $2, $3, $4) returning *',
+        databaseConnection.query('INSERT INTO comments(questionid, comment) '+
+        'values($1, $2) returning *',
 
-        [qid, addComment.title, addComment.body, addComment.comment])
+        [qid, comment])
 
-         .then ( comment => {
+        databaseConnection.query ('SELECT title, body FROM questions WHERE id ='+ qid)
+
+         .then ( result => {
 
             return res.status(201).send({
 
                 "status": 201,
                 "success": "comment posted successfully",
-                "data": comment.rows
+                "question": qid,
+                "title": result.rows[0].title,
+                "body": result.rows[0].body,
+                "comment": comment
         
 
         });
