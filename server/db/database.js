@@ -117,7 +117,7 @@ const database = async (sql, data = []) => {
     const result = await connection.query(sql, data);
     return result.rows;
   } catch (error) {
-    // console.log(error.message);
+    console.log(error.message);
   } finally {
     connection.release();
   }
