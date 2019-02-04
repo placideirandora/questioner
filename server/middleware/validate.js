@@ -37,6 +37,11 @@ const commentSchema = Joi.object().keys({
   comment: Joi.string().required(),
 });
 
+const rvspSchema = Joi.object().keys({
+  meetupId: Joi.number().integer(),
+  response: Joi.string().valid('yes', 'no', 'maybe').required(),
+});
+
 const questionParams = Joi.object().keys({
   questionId: Joi.number().required(),
 });
@@ -45,9 +50,8 @@ const meetupParams = Joi.object().keys({
   meetupId: Joi.number().integer().required(),
 });
 
-const rvspSchema = Joi.object().keys({
-  meetupId: Joi.number().integer(),
-  response: Joi.string().valid('yes', 'no', 'maybe').required(),
+const userParams = Joi.object().keys({
+  userId: Joi.number().integer().required(),
 });
 
 export default {
@@ -57,6 +61,7 @@ export default {
   loginSchema,
   questionParams,
   meetupParams,
+  userParams,
   commentSchema,
   rvspSchema,
 };
