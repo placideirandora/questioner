@@ -5,9 +5,10 @@ import User from '../model/user';
 import validate from '../middleware/validate';
 import database from '../db/database';
 import sql from '../helpers/sql';
+import bcrypt from 'bcryptjs';
 
 const users = {
-  register(req, res) {
+  registerUser(req, res) {
     const {
       firstname, lastname, othername, email, phoneNumber, username, password,
     } = req.body;
@@ -27,11 +28,13 @@ const users = {
           } = response[0];
           res.status(201).json({
             status: '201',
-            token,
             success: 'user registered',
-            user: {
-              firstname, lastname, othername, email, phoneNumber, username,
-            },
+            data:[{
+              token,
+              user: {
+                firstname, lastname, othername, email, phoneNumber, username,
+              },
+            }]
           });
         });
       }).catch((error) => {
@@ -40,7 +43,7 @@ const users = {
     }
   },
 
-  login(req, res) {
+  loginUser(req, res) {
     const {
       email, password,
     } = req.body;
@@ -54,26 +57,105 @@ const users = {
       const query = database(sql.login, [email, password]);
       query.then((response) => {
         if (response.length === 0) {
-          res.status(404).send({ error: 'Incorrect username or password' });
+          res.status(404).send({ error: 'incorrect username or password' });
         }
-        jwt.sign({ response: response[0] }, 'secretkey', { expiresIn: '1h' }, (err, token) => {
+        jwt.sign({ response: response[0] }, 'secretkey', { expiresIn: '2h' }, (err, token) => {
           const {
             firstname, lastname, othername, email, phoneNumber, username,
           } = response[0];
           res.status(200).json({
             status: '200',
-            message: 'welcome',
-            token,
-            user: {
-              firstname, lastname, othername, email, phoneNumber, username,
-            },
+            success: 'logged in',
+            data: [{
+              token,
+              user: {
+                firstname, lastname, othername, email, phoneNumber, username,
+              },
+            }]
           });
         });
       }).catch((error) => {
-        res.status(500).send({ message: 'an error has occured', error });
+        res.status(500).send({ error: 'error occured', error });
       });
     }
   },
+  retrieveUsers(req, res)
+  {
+    const allUsers = database(sql.retrieveAllusers);
+    allUsers.then((response) => {
+      if (response.length === 0) {
+        res.status(404).json({
+          status: '404',
+          error: 'no user found',
+        });
+      } else {
+        res.status(200).json({
+          status: '200',
+          success: 'users retrieved',
+          users: response,
+        });
+      }
+    }).catch((error) => {
+      res.status(500).send({ error: 'error occured', error });
+    });
+  },
+  deleteUser(req, res)
+  {
+    const userId = req.params.id;
+    const { error } = Joi.validate({
+      userId,
+    }, validate.userParams);
+
+    if (error) {
+      res.status(400).json({ error: error.details[0].message });
+    } else {
+      const findUser = database(sql.retrieveSpecificUser, [userId]);
+      findUser.then((response) => {
+        if (response.length === 0 || response.length === 'undefined') {
+          res.status(404).send({ status: '404', error: 'user with the specified id, not found' });
+        } else {
+          const deleteUser = database(sql.deleteSpecificUser, [userId]);
+          deleteUser.then((response) => {
+            if (response) {
+              res.status(200).send({ success: 'user deleted' });
+            } else {
+              res.status(400).send({ error: 'user not deleted' });
+            }
+          }).catch((error) => {
+            res.status(500).send({ error: 'error occured', error });
+          });
+        }
+      }).catch((error) => {
+        res.status(500).send({ error: 'error occured', error });
+      });
+    }
+  },
+  retrieveUser(req, res)
+  {
+    const userId = req.params.id;
+    const { error } = Joi.validate({
+      userId,
+    }, validate.userParams);
+
+    if (error) {
+      res.status(400).json({ error: error.details[0].message });
+    } else {
+      const specificUser = database(sql.retrieveSpecificUser, [userId]);
+      specificUser.then((response) => {
+        if (response.length === 0 || response.length === 'undefined') {
+          res.status(404).send({ status: '404', error: 'user with the specified id, not found' });
+        } else {
+          res.status(200).json({
+            status: '200',
+            success: 'user retrieved',
+            meetup: response[0],
+          });
+        }
+      }).catch((error) => {
+        res.status(500).send({ error: 'error occured', error });
+      });
+    }
+  }
 };
 
 export default users;

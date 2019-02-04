@@ -7,7 +7,7 @@ import Question from '../model/question';
 import validate from '../middleware/validate';
 
 const meetups = {
-  createMeetup(req, res) {
+  createMeetUp(req, res) {
     const {
       location, images, topic, happeningOn, tags,
     } = req.body;
@@ -23,7 +23,7 @@ const meetups = {
       const query = database(sql.createMeetUp, [meetup.location, meetup.images, meetup.topic, meetup.happeningOn, meetup.tags]);
       query.then((response) => {
         const {
-                    topic, location, happeningon, tags, images
+            topic, location, happeningon, tags, images
         } = response[0];
         res.status(201).json({
           status: '201',
@@ -38,7 +38,7 @@ const meetups = {
     }
   },
 
-  getOneMeetup(req, res) {
+  retrieveSpecificMeetUp(req, res) {
     const meetupId = req.params.id;
     const status = 'ACTIVE';
     const { error } = Joi.validate({
@@ -51,7 +51,7 @@ const meetups = {
       const specificMeetUp = database(sql.retrieveSpecificMeetUp, [meetupId, status]);
       specificMeetUp.then((response) => {
         if (response.length === 0 || response.length === 'undefined') {
-          res.status(404).send({ status: '404', error: 'no meetup found with the specified id' });
+          res.status(404).send({ status: '404', error: 'meetup with the specified id, not found' });
         } else {
           res.status(200).json({
             status: '200',
@@ -65,7 +65,7 @@ const meetups = {
     }
   },
 
-  getAllMeetup(req, res) {
+  retrieveAllMeetUps(req, res) {
     const status = 'ACTIVE';
     const allMeetUps = database(sql.retrieveAllMeetUps, [status]);
     allMeetUps.then((response) => {
@@ -86,7 +86,7 @@ const meetups = {
     });
   },
 
-  deleteOneMeetup(req, res) {
+  deleteSpecificMeetUp(req, res) {
     const meetupId = req.params.id;
     const statusDel = 'NOT ACTIVE';
     const status = 'ACTIVE';
@@ -119,7 +119,7 @@ const meetups = {
     }
   },
 
-  respondToMeetup(req, res) {
+  submitRSVP(req, res) {
     const meetupId =  req.params.id;
     const meetupStatus = 'ACTIVE';
     const userid = req.userId;
@@ -151,7 +151,7 @@ const meetups = {
                     }]
                 });
               }).catch((error) => {
-                console.log(error);
+                res.status(500).send({ error: 'error occured', error });
               });
             }
           }).catch((error) => {
@@ -164,7 +164,7 @@ const meetups = {
     }
   },
 
-  upcoming(req, res) {
+  retrieveUpcomingMeetUps(req, res) {
     const currentDate = new Date();
     const date = currentDate.getDate();
     const month = currentDate.getMonth();
@@ -188,7 +188,7 @@ const meetups = {
     });
   },
 
-  askQuestion(req, res) {
+  postQuestion(req, res) {
     const meetupId = req.params.id;
     const status = 'ACTIVE';
     const createdBy = req.userId;
