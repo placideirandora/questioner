@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.patch('/:id/upvote', auth.verifyUser, controller.upvote);
 router.patch('/:id/downvote', auth.verifyUser, controller.downvote);
-router.get('/:id', auth.verifyUser, controller.questionForMeetups);
-router.post('/:id/comments', auth.verifyUser, controller.commentForQuestions);
+router.get('/:id', auth.verifyUser, controller.retrieveMeetUpQuestions);
+router.post('/:id/comments', auth.verifyUser, controller.retrieveQuestionComments);
 
 export default router;
