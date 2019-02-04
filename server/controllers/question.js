@@ -141,7 +141,7 @@ const questions = {
     });
   },
 
-  retrieveQuestionComments(req, res) {
+  commentQuestion(req, res) {
     const questionId = req.params.id;
     const {
       comment,
