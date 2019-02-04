@@ -22,6 +22,8 @@ const downvote = 'INSERT INTO votes(userid, questionid, downvotes) VALUES($1, $2
 
 const deleteSpecificMeetUp = 'UPDATE meetups SET status = $1 WHERE id = $2';
 
+const deleteSpecificUser = 'DELETE FROM users WHERE id = $1';
+
 const retrieveSpecificUser = 'SELECT * FROM users WHERE id = $1';
 
 const retrieveSpecificQuestion = 'SELECT * FROM questions WHERE id=$1';
@@ -42,6 +44,8 @@ const truncate = 'TRUNCATE TABLE users, meetups, questions, rsvp, votes RESTART 
 
 const postComment = 'INSERT INTO comments(userid, questionid, comment) VALUES ($1, $2, $3) RETURNING *';
 
+const retrieveAllusers = 'SELECT * FROM users';
+
 sql.registerUser = registerUser;
 sql.createMeetUp = createMeetUp;
 sql.postQuestion = postQuestion;
@@ -52,6 +56,7 @@ sql.retrieveUpcomingMeetUps = retrieveUpcomingMeetUps;
 sql.upvote = upvote;
 sql.downvote = downvote;
 sql.deleteSpecificMeetUp = deleteSpecificMeetUp;
+sql.deleteSpecificUser = deleteSpecificUser;
 sql.retrieveSpecificUser = retrieveSpecificUser;
 sql.retrieveSpecificQuestion = retrieveSpecificQuestion;
 sql.login = login;
@@ -63,5 +68,6 @@ sql.countingupVotes = countingupVotes;
 sql.countingdownVotes = countingdownVotes;
 sql.truncate = truncate;
 sql.postComment = postComment;
+sql.retrieveAllusers = retrieveAllusers;
 
 export default sql;

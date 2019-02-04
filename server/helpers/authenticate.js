@@ -15,7 +15,7 @@ const verifyAdmin = (req, res, next) => {
       if (error) {
         res.status(400).json({
             status: '400',
-            message: 'failed to decode the token'
+            error: 'failed to decode the token or it has expired'
         });
       }
       if (authData.response.isadmin === true) {
@@ -36,7 +36,7 @@ const verifyUser = (req, res, next) => {
   if (typeof bearerHeader === 'undefined' || !bearerHeader) {
     res.status(403).json({
       status: '403',
-      message: 'unauthorized access',
+      error: 'unauthorized access',
     });
   } else {
     const bearer = bearerHeader.split(' ');
@@ -46,7 +46,7 @@ const verifyUser = (req, res, next) => {
       if (error) {
         res.status(403).json({
           status: '403',
-          message: 'token expired. log in again!',
+          error: 'token expired. log in again!',
         });
       }
       if (authData.response.isadmin === false) {
@@ -58,7 +58,7 @@ const verifyUser = (req, res, next) => {
       } else {
         res.status(403).json({
           status: '403',
-          message: 'access denied',
+          error: 'access denied',
         });
       }
     });

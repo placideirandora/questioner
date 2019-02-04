@@ -115,7 +115,7 @@ const questions = {
     }
   },
 
-  questionForMeetups(req, res) {
+  retrieveMeetUpQuestions(req, res) {
     const status = 'ACTIVE';
     const  meetupId  = req.params.id;
     const findMeetup = database(sql.retrieveSpecificMeetUp, [meetupId, status]);
@@ -123,8 +123,8 @@ const questions = {
       if (response.length === 0) {
         res.status(404).send({ status: '404', error: 'meetup with the specified id, not found' });
       } else {
-        const questionForMeetups = database(sql.retrieveMeetUpQuestions, [meetupId]);
-        questionForMeetups.then((response) => {
+        const meetUpQuestions = database(sql.retrieveMeetUpQuestions, [meetupId]);
+        meetUpQuestions.then((response) => {
           if (response.length === 0) {
             res.status(404).send({ status: '404', error: 'no questions found for the specified meetup id' });
           } else {
@@ -141,7 +141,7 @@ const questions = {
     });
   },
 
-  commentForQuestions(req, res) {
+  retrieveQuestionComments(req, res) {
     const questionId = req.params.id;
     const {
       comment,
