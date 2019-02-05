@@ -127,7 +127,7 @@ const meetups = {
       response
     } = req.body;
 
-    const { error } = Joi.validate({ meetupId, }, validate.meetupParams);
+    const { error } = Joi.validate({ response, meetupId }, validate.rvspSchema);
     if (error) {
       res.status(400).send({ error: error.details[0].message });
     } else {
