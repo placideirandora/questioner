@@ -120,14 +120,14 @@ const meetups = {
   },
 
   submitRSVP(req, res) {
-    const meetupId =  req.params.id;
+    const meetupId = req.params.id;
     const meetupStatus = 'ACTIVE';
     const userid = req.userId;
     const {
-      response, meetupId
+      response
     } = req.body;
 
-    const { error } = Joi.validate({ response }, validate.rvspSchema);
+    const { error } = Joi.validate({ meetupId, }, validate.meetupParams);
     if (error) {
       res.status(400).send({ error: error.details[0].message });
     } else {

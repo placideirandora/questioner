@@ -38,12 +38,11 @@ const commentSchema = Joi.object().keys({
 });
 
 const rvspSchema = Joi.object().keys({
-  meetupId: Joi.number().integer(),
   response: Joi.string().valid('yes', 'no', 'maybe').required(),
 });
 
 const questionParams = Joi.object().keys({
-  questionId: Joi.number().required(),
+  questionId: Joi.number().integer().required(),
 });
 
 const meetupParams = Joi.object().keys({
