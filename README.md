@@ -37,6 +37,12 @@ Travis-CI and Coveralls
 Code Climate
 ```
 
+### Database
+
+```
+PostgreSQL
+```
+
 ### Deployment
 
 ```
