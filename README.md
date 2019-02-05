@@ -77,7 +77,7 @@ $ npm run test
 
 ## API ENDPOINT ROUTES
 
-| Method | Endpoint Route | Description |
+| METHOD | ROUTE | DESCRIPTION |
 |--------|----------------|-------------|
 |  POST  | api/v1/auth/signup | Create a user account |
 |  POST  | api/v1/auth/login  | Log user in |
