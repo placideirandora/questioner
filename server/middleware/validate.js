@@ -11,18 +11,18 @@ const userSchema = Joi.object().keys({
 });
 
 const meetupSchema = Joi.object().keys({
-  location: Joi.string().min(3).max(150).required(),
-  images: Joi.array().items(Joi.string().min(4)),
-  topic: Joi.string().min(3).max(50).required(),
-  happeningOn: Joi.date() .required(),
-  tags: Joi.array().items(Joi.string().min(3)).required(),
+  location: Joi.string().alphanum().min(3).max(150).required(),
+  images: Joi.array().items(Joi.string().alphanum().min(4)),
+  topic: Joi.string().alphanum().min(3).max(50).required(),
+  happeningOn: Joi.date().required(),
+  tags: Joi.array().items(Joi.string().alphanum().min(3)).required(),
 });
 
 const questionSchema = Joi.object().keys({
   meetupId: Joi.number().integer().required(),
   createdBy: Joi.number().integer().required(),
-  title: Joi.string().min(5).max(50).required(),
-  body: Joi.string().min(5).max(120).required(),
+  title: Joi.string().alphanum().min(5).max(50).required(),
+  body: Joi.string().alphanum().min(5).max(120).required(),
   upvote: Joi.number().integer(),
   downvote: Joi.number().integer(),
 });
@@ -34,12 +34,12 @@ const loginSchema = Joi.object().keys({
 
 const commentSchema = Joi.object().keys({
   questionId: Joi.number().required(),
-  comment: Joi.string().required(),
+  comment: Joi.string().alphanum().required(),
 });
 
 const rvspSchema = Joi.object().keys({
   meetupId: Joi.number().integer().required(),
-  response: Joi.string().valid('yes', 'no', 'maybe').required(),
+  response: Joi.string().alphanum().valid('yes', 'no', 'maybe').required(),
 });
 
 const questionParams = Joi.object().keys({
