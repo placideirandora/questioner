@@ -1,69 +1,69 @@
-# questioner
+# QUESTIONER
 
 ​Questioner​ helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
 [![Build Status](https://travis-ci.org/placideirandora/questioner.svg?branch=develop)](https://travis-ci.org/placideirandora/questioner) [![Coverage Status](https://coveralls.io/repos/github/placideirandora/questioner/badge.svg?branch=develop)](https://coveralls.io/github/placideirandora/questioner?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/931a22049dce652e85fe/maintainability)](https://codeclimate.com/github/placideirandora/questioner/maintainability) 
 
 
-## tools used
+## TOOLS USED
 
-Programming Language:
+### Programming Language:
 
-```sh
+```
 JavaScript
 ```
 
-Server Environment:
+### Server Environment:
 
-```sh
+```
 NodeJS
 ```
 
-Test Libraries:
+### Test Libraries:
 
-```sh
+```
 Mocha, Chai, and Jasmine
 ```
 
-Continuous Integration Testing:
+### Continuous Integration Testing:
 
-```sh
+```
 Travis-CI and Coveralls
 ```
 
-Code Maintainability:
+### Code Maintainability:
 
-```sh
+```
 Code Climate
 ```
 
-Deployment:
+### Deployment:
 
-```sh
+```
 Heroku
 ```
 
-## getting started
+## GETTING STARTED
 
-Install Required Dependencies:
+### Install Required Dependencies:
 
-```sh
+```
 $ npm install
 ```
 
-Start The Server:
+### Start The Server:
 
-```sh
+```
 $ npm start
 ```
 
-Run Tests:
+### Run Tests:
 
-```sh
+```
 $ npm run test
 ```
 
-## api endpoits routes
+## API ENDPOINT ROUTES
 
 | Method | Endpoint Route | Description |
 |--------|----------------|-------------|
@@ -84,13 +84,13 @@ $ npm run test
 |  PATCH | api/v1/questions/id | retrieve questions for a specific meetup |
 |  POST  | api/v1/questions/id/comments | comment on a specific question |
 
-## developer
+## DEVELOPER
 
-```sh
+```
 Placide IRANDORA
 ```
 
-## copyright
+## COPYRIGHT
 
 &copy; 2019 Placide IRANDORA
 
