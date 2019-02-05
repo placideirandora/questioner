@@ -11,9 +11,9 @@ const userSchema = Joi.object().keys({
 });
 
 const meetupSchema = Joi.object().keys({
-  location: Joi.string().alphanum().min(3).max(150).required(),
+  location: Joi.string().min(3).max(150).required(),
   images: Joi.array().items(Joi.string().alphanum().min(4)),
-  topic: Joi.string().alphanum().min(3).max(50).required(),
+  topic: Joi.string().min(3).max(50).required(),
   happeningOn: Joi.date().required(),
   tags: Joi.array().items(Joi.string().alphanum().min(3)).required(),
 });

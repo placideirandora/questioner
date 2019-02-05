@@ -96,6 +96,27 @@ $ npm run test
 |  PATCH | api/v1/questions/id | Retrieve questions for a specific meetup |
 |  POST  | api/v1/questions/id/comments | Comment on a specific question |
 
+## REQUESTS AND RESPONSES SAMPLE
+
+### POST meetups/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## DEVELOPER
 
 Placide IRANDORA
@@ -103,9 +124,4 @@ Placide IRANDORA
 ## COPYRIGHT
 
 &copy; 2019 Placide IRANDORA
-
-
-
-
-
 
