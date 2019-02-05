@@ -1,4 +1,4 @@
-
+import bcrypt from 'bcryptjs';
 import sql from '../helpers/sql';
 
 const { Pool } = require('pg');
@@ -25,6 +25,7 @@ if (process.env.DATABASE_URL) {
 const connect = async () => await newPool.connect();
 
 const tables = async () => {
+  const hash = bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10);
   const admin = [
     process.env.ADMIN_FIRSTNAME,
     process.env.ADMIN_LASTNAME,
@@ -32,7 +33,7 @@ const tables = async () => {
     process.env.ADMIN_EMAIL,
     process.env.ADMIN_PHONENUMBER,
     process.env.ADMIN_USERNAME,
-    process.env.ADMIN_PASSWORD,
+    hash,
     process.env.IS_ADMIN,
   ];
 
@@ -45,7 +46,7 @@ users(
     email VARCHAR(50) UNIQUE NOT NULL,
     phonenumber VARCHAR(20) UNIQUE NOT NULL,
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(150) NOT NULL,
     registered TIMESTAMP default current_timestamp,
     isAdmin BOOLEAN NOT NULL default FALSE
 );`;
