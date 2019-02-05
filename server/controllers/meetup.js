@@ -124,7 +124,7 @@ const meetups = {
     const meetupStatus = 'ACTIVE';
     const userid = req.userId;
     const {
-      response,
+      response, meetupId
     } = req.body;
 
     const { error } = Joi.validate({ response }, validate.rvspSchema);
