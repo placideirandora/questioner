@@ -2,42 +2,42 @@
 
 ​Questioner​ helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
-[![Build Status](https://travis-ci.org/placideirandora/questioner.svg?branch=develop)](https://travis-ci.org/placideirandora/questioner) [![Coverage Status](https://coveralls.io/repos/github/placideirandora/questioner/badge.svg?branch=develop)](https://coveralls.io/github/placideirandora/questioner?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/931a22049dce652e85fe/maintainability)](https://codeclimate.com/github/placideirandora/questioner/maintainability) 
+[![Build Status](https://travis-ci.org/placideirandora/questioner.svg?branch=develop)] (https://travis-ci.org/placideirandora/questioner) [![Coverage Status](https://coveralls.io/repos/github/placideirandora/questioner/badge.svg?branch=develop)](https://coveralls.io/github/placideirandora/questioner?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/931a22049dce652e85fe/maintainability)](https://codeclimate.com/github/placideirandora/questioner/maintainability) 
 
 
 ## TOOLS USED
 
-### Programming Language:
+### Programming Language
 
 ```
 JavaScript
 ```
 
-### Server Environment:
+### Server Environment
 
 ```
 NodeJS
 ```
 
-### Test Libraries:
+### Test Libraries
 
 ```
 Mocha, Chai, and Jasmine
 ```
 
-### Continuous Integration Testing:
+### Continuous Integration Testing
 
 ```
 Travis-CI and Coveralls
 ```
 
-### Code Maintainability:
+### Code Maintainability
 
 ```
 Code Climate
 ```
 
-### Deployment:
+### Deployment
 
 ```
 Heroku
@@ -45,19 +45,19 @@ Heroku
 
 ## GETTING STARTED
 
-### Install Required Dependencies:
+### Install Required Dependencies
 
 ```
 $ npm install
 ```
 
-### Start The Server:
+### Start The Server
 
 ```
 $ npm start
 ```
 
-### Run Tests:
+### Run Tests
 
 ```
 $ npm run test
