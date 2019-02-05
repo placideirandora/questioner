@@ -28,6 +28,8 @@ const retrieveSpecificUser = 'SELECT * FROM users WHERE id = $1';
 
 const retrieveSpecificQuestion = 'SELECT * FROM questions WHERE id=$1';
 
+const retrieveSpecificEmail = 'SELECT * FROM users WHERE email = $1';
+
 const countingupVotes = 'SELECT question.id, question.createdon, question.createdby, question.meetup, question.title, question.body, votes.upvote, votes.question, COUNT(votes.upvote) AS upvotes_sum FROM questions, votes WHERE votes.upvote=1 AND votes.question=question.id GROUP BY question.id, question.createdon, question.createdby, question.meetup, question.title, question.body, votes.question, votes.upvote, votes.downvote';
 
 const countingdownVotes = 'SELECT question.id, question.createdon, question.createdby, question.meetup, question.title, question.body, votes.downvote, votes.question, COUNT(votes.downvote) AS downvote_sum FROM questions, votes WHERE votes.downvote=1 AND votes.question=question.id GROUP BY question.id, question.createdon, question.createdby, question.meetup, question.title, question.body, votes.question, votes.downvote';
@@ -53,6 +55,7 @@ sql.submitRSVP = submitRSVP;
 sql.retrieveAllMeetUps = retrieveAllMeetUps;
 sql.retrieveSpecificMeetUp = retrieveSpecificMeetUp;
 sql.retrieveUpcomingMeetUps = retrieveUpcomingMeetUps;
+sql.retrieveSpecificEmail = retrieveSpecificEmail;
 sql.upvote = upvote;
 sql.downvote = downvote;
 sql.deleteSpecificMeetUp = deleteSpecificMeetUp;
