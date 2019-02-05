@@ -52,9 +52,8 @@ Heroku
 ### Security
 
 ```
-bcryptjs and jsonwebtoken
+BcryptJS and JsonWebToken
 ```
-
 
 ## GETTING STARTED
 
