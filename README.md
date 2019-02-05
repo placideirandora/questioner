@@ -43,6 +43,13 @@ Code Climate
 Heroku
 ```
 
+### Security
+
+```
+bcryptjs and jsonwebtoken
+```
+
+
 ## GETTING STARTED
 
 ### Install Required Dependencies
@@ -67,28 +74,26 @@ $ npm run test
 
 | Method | Endpoint Route | Description |
 |--------|----------------|-------------|
-|  POST  | api/v1/auth/signup | create a user account |
-|  POST  | api/v1/auth/login  | log user in |
-|  GET   | api/v1/users | retrieve all users |
-|  GET   | api/v1/users/id | retrieve a specific user | 
-|  DELETE | api/v1/users/id | delete a specific user |
-|  POST | api/v1/meetups | create a meetup record |
-|  GET   | api/v1/meetups | retrieve all meetups |
-|  GET   | api/v1/meetups/id | retrieve a specific meetup |
-|  POST  | api/v1/meetups/id/rsvps | respond to a specific meetup |
-|  GET   | api/v1/meetups/upcoming | retrieve upcoming meetups |
-|  DELETE | api/v1/meetups/id | delete a specific meetup |
-|  POST  | api/v1/meetups/id/questions | create a question for a specific meetup |
-|  PATCH | api/v1/questions/id/upvote | upvote a specific question |
-|  PATCH | api/v1/questions/id/downvote | downvote a specific question |
-|  PATCH | api/v1/questions/id | retrieve questions for a specific meetup |
-|  POST  | api/v1/questions/id/comments | comment on a specific question |
+|  POST  | api/v1/auth/signup | Create a user account |
+|  POST  | api/v1/auth/login  | Log user in |
+|  GET   | api/v1/users | Retrieve all users |
+|  GET   | api/v1/users/id | Retrieve a specific user | 
+|  DELETE | api/v1/users/id | Delete a specific user |
+|  POST | api/v1/meetups | Create a meetup record |
+|  GET   | api/v1/meetups | Retrieve all meetups |
+|  GET   | api/v1/meetups/id | Retrieve a specific meetup |
+|  POST  | api/v1/meetups/id/rsvps | Respond to a specific meetup |
+|  GET   | api/v1/meetups/upcoming | Retrieve upcoming meetups |
+|  DELETE | api/v1/meetups/id | Delete a specific meetup |
+|  POST  | api/v1/meetups/id/questions | Create a question for a specific meetup |
+|  PATCH | api/v1/questions/id/upvote | Upvote a specific question |
+|  PATCH | api/v1/questions/id/downvote | Downvote a specific question |
+|  PATCH | api/v1/questions/id | Retrieve questions for a specific meetup |
+|  POST  | api/v1/questions/id/comments | Comment on a specific question |
 
 ## DEVELOPER
 
-```
 Placide IRANDORA
-```
 
 ## COPYRIGHT
 
