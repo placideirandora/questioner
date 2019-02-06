@@ -16,8 +16,8 @@ class userControllers
 
         if (error)
         {
-            return res.status(400).send({
-                "status": 400,
+             res.status(400).send({
+               "status": 400,
                 "error": error.details[0].message
             })
         }
