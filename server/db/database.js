@@ -12,14 +12,28 @@ if (process.env.DATABASE_URL) {
   newPool = new Pool({
     connectionString,
   });
-} else {
+} 
+
+else if (process.env.NODE_ENV === 'test')
+{
+  newPool = new Pool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME_TEST,
+    port: process.env.DB_PORT,
+    password: process.env.DB_PASSWORD,
+  });
+}
+
+else { 
   newPool = new Pool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     password: process.env.DB_PASSWORD,
-  });
+  });  
+
 }
 
 const connect = async () => await newPool.connect();
@@ -110,7 +124,7 @@ comments(
   await connection.query(sql.admin, admin);
 };
 
-tables();
+  tables();
 
 const database = async (sql, data = []) => {
   const connection = await connect();
