@@ -1,56 +1,45 @@
-//importing required modules for functionality
-
-const express = require ('express');
-
-const userRouter = require ('./server/routes/userRoutes');
-
-const meetUpRouter = require ('./server/routes/meetUpRoutes');
-
-const questionRouter = require ('./server/routes/questionRoutes');
-
-const path = require('path');
-
-const bodyParser = require ('body-parser');
-
-//setting up the server
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import user from './server/routes/user';
+import meetup from './server/routes/meetup';
+import question from './server/routes/question';
+import path from 'path';
 
 const app = express();
 
-//setting the view engine to ejs and the path
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine','ejs');
-
 app.set('views', path.join(__dirname,'server/views'));
-
-//back-end web-app ejs template for homepage
-
 app.get('/', (req, res) => {
-    res.render('index')
-  });
-
-//implementing the body-parser
-
-app.use (bodyParser.json());
-
-app.use (bodyParser.urlencoded({extended: false}));
-
-//implementing the routers
-
-app.use(userRouter);
-
-app.use(meetUpRouter);
-
-app.use(questionRouter);
-
-//setting up the server's port
-
-const PORT = process.env.PORT || 3000;
-
-//setting up the server for listening to the specified port and return a message of functionality
-
-app.listen (PORT, () => {
-    console.log (`Server listening on the port: ${PORT}`);
+  res.render('index')
 });
 
+app.use(morgan('dev'));
+app.use('/api/v1/auth', user);
+app.use('/api/v1/users', user);
+app.use('/api/v1/meetups', meetup);
+app.use('/api/v1/questions', question);
 
-module.exports = app
+app.use((req, res, next) => {
+  const error = new Error('route not found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 400);
+  res.json({ 
+      status: '400',
+      error: error.message,
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen (PORT, () => { 
+  console.log (`Server listening on port: ${PORT}`); 
+});
+
+export default app;
