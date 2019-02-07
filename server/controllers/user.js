@@ -2,7 +2,7 @@
 
 const usersDB = require ('../models/userDB.js');
 
-const userSchema = require ('../helpers/userSchema.js');
+const validate = require ('../middleware/validate');
 
 const Joi = require ('joi');
 

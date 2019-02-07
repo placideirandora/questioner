@@ -2,7 +2,7 @@ const Joi = require ('joi');
 
 const questionsDB = require ('../models/questionDB.js');
 
-const questionSchema = require ('../helpers/questionSchema.js');
+const validate = require ('../middleware/validate');
 
 class questionControllers
 
