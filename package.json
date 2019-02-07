@@ -4,7 +4,7 @@
   "description": "​Questioner​ helps the meetup organizer prioritize questions to be answered.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --report=html --reporter=text mocha --require babel-polyfill --require babel-register  ./server/tests --timeout 1200 --exit",
+    "test": "cross-env NODE_ENV=test mocha --require babel-polyfill --require babel-register  ./server/tests --timeout 1200 --exit",
     "dev": "nodemon app.js",
     "start": "nodemon --exec babel-node app.js",
     "coverage": "nyc report --reporter=text mocha ./server/test | coveralls"
@@ -29,6 +29,7 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "cross-env": "^5.2.0",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "env": "0.0.2",
