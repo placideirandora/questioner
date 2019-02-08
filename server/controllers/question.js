@@ -1,190 +1,116 @@
-const Joi = require ('joi');
+import Joi from 'joi';
+import dummy from '../models/dummy';
+import validate from '../middleware/validate';
 
-const questionsDB = require ('../models/questionDB.js');
-
-const validate = require ('../middleware/validate');
-
-class questionControllers
-
-{
-
-     
-    createQuestion (req, res)
-    {   
-
-        const { error } = Joi.validate (req.body, questionSchema);
-
-        if (error)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": error.details[0].message
-            })
-        }
-
-        else 
-
-        {
-
-        const addQuestion = {
-            id: questionsDB.length + 1,
-            createdOn: new Date().toGMTString(),
-            createdBy: req.body.createdBy,
-            meetup: req.body.meetup,
-            title: req.body.title,
-            body: req.body.body,
-            upvotes: 0,
-            downvotes: 0
-        
-        };
-
-
-        questionsDB.push (addQuestion);
-
-
-        return res.status(201).send({
-                "status": 201,
-                "success": "question posted successfully",
-                "data": addQuestion
-
-        })
+const questions = {
+     retrieveMeetUpQuestions (req, res)
+     {  
+        const meetupId = parseInt (req.params.id, 10);
+        const meetup = dummy.meetups.find(meetup => meetup.id === meetupId);
+        if (!meetup) {
+        res.status(404).json({
+            status: 404,
+            error: 'meetup not found'
+        });
     }
-
-}
-
-
-     getAllQuestions (req, res)
-     {
-
-         return res.status(200).send({
-             "status": 200,
-             "success": "questions retrieved successfully",
-             "data": questionsDB
-         });
-     }
+        dummy.questions.map ((question) => {
+            if (question.meetup === meetupId)
+            {
+                    res.status(200).json({
+                    status: 200,
+                    success: 'questions retrieved',
+                    data: question,
+                });
+            }
+        });
+        res.status(404).json({
+            status: 404,
+            error: 'no question found'
+        });
+     },
  
-
- 
-     getSpecificQuestion(req, res)
-     {
-        const id = parseInt(req.params.id, 10);
- 
-         questionsDB.map ((question, index) => {
-             if (question.id === id)
-             {
-                 return res.status(200).send({
-                     "status": 200,
-                     "success": "question retrieved successfully",
-                     "data": question
-                 });
-             }
-         });
- 
-        return res.status(404).send({
-             "status": 404,
-             "error": "question not found"
-             
-         });
-     }
-
-
-     upvoteQuestion (req, res)
-     {
-        
-        const uqid = parseInt(req.params.id, 10);
-        const arrIndex = questionsDB.findIndex(q => q.id === parseInt(req.params.id, 10));
-
+     upvote(req, res)
+     {  
+        const questionId = parseInt(req.params.id, 10);
+        const { error } = Joi.validate({
+            questionId,
+          }, validate.questionParams);
+          if (error) {
+            res.status(400).json({ error: error.details[0].message });
+          } else {
+        const arrIndex = dummy.questions.findIndex(question => question.id === questionId);
         let questionFound;
         let itemIndex;
-    
-        questionsDB.map ((findQuestion, index) => {
-            if (findQuestion.id === uqid) 
+        dummy.questions.map ((findQuestion, index) => {
+            if (findQuestion.id === questionId) 
             {
                 questionFound = findQuestion;
                 itemIndex = index;
-    
             }
         });
-    
         if (!questionFound)
         {
-            return res.status(404).send({
-                "status": 404,
-                 "error": "question not found"
+            res.status(404).send({
+                status: 404,
+                error: 'question not found'
             
             });
         }
-
-        
-    
-        const updateTheQuestion = {
+        const upvoted = {
             meetup: questionFound.meetup,
             title: questionFound.title,
             body: questionFound.body,
-            votes: questionsDB[arrIndex].upvotes++
+            votes: dummy.questions[arrIndex].upvotes++
         };
-    
-        return res.status (200).send ({
-            "status": 200,
-            "success": 'question upvoted successfully',
-            "data":
-            updateTheQuestion,
+        res.status (200).send ({
+            status: 200,
+            success: 'question upvoted ',
+            data: upvoted,
         });
-
     }
+    },
 
-     
-
-
-     downvoteQuestion (req, res)
+     downvote(req, res)
      {
-           
-        const dqid = parseInt(req.params.id, 10);
-        const arrIndex = questionsDB.findIndex(q => q.id === parseInt(req.params.id, 10));
+       const questionId = parseInt(req.params.id, 10);
+       const { error } = Joi.validate({
+        questionId,
+      }, validate.questionParams);
 
+      if (error) {
+        res.status(400).json({ error: error.details[0].message });
+      } else {
+        const arrIndex = dummy.questions.findIndex(question => question.id === questionId);
         let questionFound;
         let itemIndex;
-    
-        questionsDB.map ((findQuestion, index) => {
-            if (findQuestion.id === dqid) 
+        dummy.questions.map ((findQuestion, index) => {
+            if (findQuestion.id === questionId) 
             {
                 questionFound = findQuestion;
-                itemIndex = index;
-    
+                itemIndex = index;    
             }
         });
-    
         if (!questionFound)
         {
-            return res.status(404).send({
-                "status": 404,
-                 "error": "question not found"
+             res.status(404).send({
+                status: 404,
+                 error: 'question not found'
             
             });
         }
-
-        
-    
-        const updateTheQuestion = {
+        const downvoted = {
             meetup: questionFound.meetup,
             title: questionFound.title,
             body: questionFound.body,
-            votes: questionsDB[arrIndex].downvotes++
+            votes: dummy.questions[arrIndex].downvotes++
         };
-
-    
-        return res.status (200).send ({
-            "status": 200,
-            "success": 'question downvoted successfully',
-            "data":
-            updateTheQuestion,
+        res.status (200).send ({
+            status: 200,
+            success: 'question downvoted',
+            data: downvoted
         });
-
     }
-
-
 }
+};
 
-const questionController = new questionControllers();
-
-module.exports = questionController;
+export default questions;

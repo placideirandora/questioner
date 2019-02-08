@@ -1,91 +1,67 @@
-//importing the users database 
+import Joi from 'joi';
+import  User  from '../models/user';
+import dummy from '../models/dummy';
+import validate from '../middleware/validate';
 
-const usersDB = require ('../models/userDB.js');
-
-const validate = require ('../middleware/validate');
-
-const Joi = require ('joi');
-
-class userControllers
-
-{
-
-    createUser (req, res)
+const users = {
+    registerUser (req, res)
     {   
-        const { error } = Joi.validate (req.body, userSchema);
+        const {
+            firstname, lastname, othername, email, phoneNumber, username,
+          } = req.body;
+          const { error } = Joi.validate({
+            firstname, lastname, othername, email, phoneNumber, username,
+          }, validate.userSchema);
+          if (error) {
+            res.status(400).json({ error: error.details[0].message });
+          } else {
+            const id = dummy.users.length + 1;
+            const user = new User(id, firstname, lastname, othername, email, phoneNumber, username);
+            dummy.users.push(user);
+              res.status(201).json({
+                status: 201,
+                success: 'user registered',
+                data: {
+                  user
+                },
+              });
+          } 
+},
 
-        if (error)
-        {
-            return res.status(400).send({
-                "status": 400,
-                "error": error.details[0].message
-            })
-        }
-
-        else 
-
-        {
-
-        const addUser = {
-            id: usersDB.length + 1,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            othername: req.body.othername,
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber,
-            username: req.body.username,
-            registered: new Date().toGMTString(),
-            isAdmin: false,
-        };
-
-        usersDB.push (addUser);
-
-        return res.status(201).send({
-                "status": 201,
-                "success": "user added successfully",
-                "data": addUser
-        })
-    }
-}
-
-
-    getAllUsers (req, res)
+    retrieveUsers (req, res)
     {
-
-        return res.status(200).send({
-            "status": 200,
-            "success": "users retrieved successfully",
-            "data": usersDB
+        res.status(200).json({
+            status: 200,
+            success: 'users retrieved',
+            data: dummy.users
         });
-    }
+    },
 
-
-    getSpecificUser (req, res)
+    retrieveUser (req, res)
     {   
-
-        const gsuid = parseInt(req.params.id, 10);
-
-        usersDB.map ((user, index) => {
-
-            if (user.id === gsuid)
+        const userId = parseInt( req.params.id, 10);
+        const { error } = Joi.validate({
+            userId,
+          }, validate.userParams);
+          if (error) {
+            res.status(400).json({ error: error.details[0].message });
+          } else {
+            dummy.users.map ((user) => {
+            if (user.id === userId)
             {
-                return res.status(200).send({
-                    "status": 200,
-                    "success": "user retrieved successfully",
-                    "data": user
+                    res.status(200).json({
+                    status: 200,
+                    success: 'user retrieved',
+                    data: user,
                 });
             }
         });
-
-
-        return res.status(404).send({
-            "status": 404,
-            "error": "user not found"
+           res.status(404).json({
+           status: 404,
+           error: 'user not found'
         });
     }
-}
+    },
+};
 
-
-const userController = new userControllers();
-
-module.exports = userController;
+export default users;

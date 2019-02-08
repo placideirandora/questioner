@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import  meetUp  from '../models/meetup';
+import meetUp  from '../models/meetup';
+import Question from '../models/question';
 import dummy from '../models/dummy';
 import validate from '../middleware/validate';
 
@@ -8,11 +9,9 @@ const meetups = {
         const {
           location, images, topic, happeningOn, tags,
         } = req.body;
-    
         const { error } = Joi.validate({
           location, images, topic, happeningOn, tags,
         }, validate.meetupSchema);
-    
         if (error) {
           res.status(400).json({ error: error.details[0].message });
         } else {
@@ -26,15 +25,15 @@ const meetups = {
                 meetup
               },
             });
-        }
+          }
         },
 
     retrieveAllMeetUps (req, res)
     {   
         res.status(200).json({
             status: 200,
-            success: 'meetups retrieved successfully',
-            data: dummy      
+            success: 'meetups retrieved',
+            data: dummy.meetups      
         });
     },
 
@@ -44,7 +43,6 @@ const meetups = {
         const { error } = Joi.validate({
             meetupId,
           }, validate.meetupParams);
-      
           if (error) {
             res.status(400).json({ error: error.details[0].message });
           } else {
@@ -53,12 +51,11 @@ const meetups = {
             {
                     res.status(200).json({
                     status: 200,
-                    success: 'meetup retrieved successfully',
+                    success: 'meetup retrieved',
                     data: meetup,
                 });
             }
         });
-
            res.status(404).json({
            status: 404,
            error: 'meetup not found'
@@ -83,10 +80,8 @@ const meetups = {
             error: 'meetup not found'
         });
     }
-    
     const { response } = req.body;   
     const { error } = Joi.validate ({response}, validate.rsvpSchema);
-
         if (error)
         {
             res.status(400).send({
@@ -119,7 +114,6 @@ const meetups = {
             error: 'meetup not found'
         });
     }
-
     if (dummy.rsvps.length === 0)
     {
         res.status(400).json({
@@ -127,14 +121,12 @@ const meetups = {
             success: 'no meetup rsvp found',
         }); 
     }
-
         res.status(200).json({
         status: 200,
-        success: 'meetup rsvp retrieved successfully',
+        success: 'meetup rsvp retrieved',
         data: dummy.rsvps
     });
     },
-
 
     retrieveUpcomingMeetUps(req, res)
     {  
@@ -148,13 +140,43 @@ const meetups = {
             data.push(meetup);
         }
     });
-
     res.status(200).send({
         'status': 200,
-        'success': "upcoming meetups",
+        'success': "upcoming meetups retrieved",
         data
     });
-},    
+},  
+
+postQuestion(req, res) {
+  const meetupId = parseInt ( req.params.id, 10);
+  const {
+    title, body,
+  } = req.body;
+  const { error } = Joi.validate({
+    meetupId, title, body,
+  }, validate.questionSchema);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+  } else {
+    const meetup = dummy.meetups.find(m => m.id === parseInt(req.params.id, 10));
+    if (!meetup) {
+    res.status(404).json({
+        status: 404,
+        error: 'meetup not found'
+    });
+}
+const id = dummy.questions.length + 1;
+const question = new Question(id, meetupId, title, body);
+dummy.questions.push(question);
+  res.status(201).json({
+    status: 201,
+    success: 'question posted',
+    data:[ 
+      question
+    ]
+  }); 
+  }
+},
 };
 
 export default meetups;
