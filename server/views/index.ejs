@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>API</title>
+<title>QUESTIONER</title>
 <style>
 body { 
         color: #161616;;
@@ -14,75 +14,71 @@ h2 { background: skyblue; padding: 3px; }
 </head>
 <body>
 <h1>QUESTIONER API ENDPOINT ROUTES</h1>
+<br>
 <h2> 1. USER ROUTES </h2>
 <hr>
-<h3> 1.1. CREATING A NEW USER WITH POST METHOD </h3>
+<h3> 1.1. REGISTER A NEW USER WITH POST METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/users/
+    https://questioner-web-app.herokuapp.com/api/v1/users
 </p>
 <hr>
-<h3> 1.2. RETRIEVING ALL USERS WITH GET METHOD </h3>
+<h3> 1.2. RETRIEVE ALL USERS WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/users/
+    https://questioner-web-app.herokuapp.com/api/v1/users
 </p>
 <hr>
-<h3> 1.3. RETRIEVING A SPECIFIC USER WITH GET METHOD AND USER ID PASSED AS AN ARGUMENT </h3>
+<h3> 1.3. RETRIEVE A SPECIFIC USER WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/users/(id: put user id here)
+    https://questioner-web-app.herokuapp.com/api/v1/users/id
 </p>
 <hr>
 <h2> 2. MEETUP ROUTES </h2>
 <hr>
-<h3> 1.1. CREATING A NEW MEETUP WITH POST METHOD </h3>
+<h3> 2.1. CREATE A NEW MEETUP WITH POST METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/meetups/
+    https://questioner-web-app.herokuapp.com/api/v1/meetups
 </p>
 <hr>
-<h3> 1.2. RETRIEVING ALL MEETUPS WITH GET METHOD </h3>
+<h3> 2.2. RETRIEVE ALL MEETUPS WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/meetups/
+    https://questioner-web-app.herokuapp.com/api/v1/meetups
 </p>
 <hr>
-<h3> 1.3. RETRIEVING A SPECIFIC MEETUP WITH GET METHOD AND USER ID PASSED AS AN ARGUMENT </h3>
+<h3> 2.3. RETRIEVE A SPECIFIC MEETUP WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/meetups/(id: put meetup id here)
+    https://questioner-web-app.herokuapp.com/api/v1/meetups/id
 </p>
 <hr>
-<h3> 1.4. RESPONDING TO A SPECIFIC MEETUP WITH POST METHOD / MEETUP RSVP </h3>
+<h3> 2.4. RESPOND TO A SPECIFIC MEETUP WITH POST METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/meetups/(id: put meetup id here)/rsvps/
+    https://questioner-web-app.herokuapp.com/api/v1/meetups/id/rsvps
 </p>
 <hr>
-<h3> 1.5. RETRIEVING UPCOMING MEETUPS WITH GET METHOD </h3>
+<h3> 2.5. RETRIEVE UPCOMING MEETUPS WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/meetups/upcoming/
+    https://questioner-web-app.herokuapp.com/api/v1/meetups/upcoming
+</p>
+<hr>
+<h3> 2.6. POST A QUESTION IN A SPECIFIC MEETUP WITH POST METHOD </h3>
+<p> 
+https://questioner-web-app.herokuapp.com/api/v1/meetups/id/questions
 </p>
 <hr>
 <h2> 3. QUESTION ROUTES </h2>
 <hr>
-<h3> 1.1. CREATING A NEW QUESTION WITH POST METHOD </h3>
+<h3> 3.1. UPVOTE A SPECIFIC QUESTION WITH PATCH METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/questions/
+    https://questioner-web-app.herokuapp.com/api/v1/questions/id/upvote
 </p>
 <hr>
-<h3> 1.2. RETRIEVING ALL QUESTIONS WITH GET METHOD </h3>
+<h3> 3.2. DOWNVOTE A SPECIFIC QUESTION WITH PATCH METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/questions/
+    https://questioner-web-app.herokuapp.com/api/v1/questions/id/downvote
 </p>
 <hr>
-<h3> 1.3. RETRIEVING A SPECIFIC QUESTION WITH GET METHOD AND QUESTION ID PASSED AS AN ARGUMENT </h3>
+<h3> 3.3. RETRIEVE QUESTIONS FOR A SPECIFIC MEETUP WITH GET METHOD </h3>
 <p> 
-    https://questioner-web-app.herokuapp.com/api/v1/questions/(id: put question id here)
-</p>
-<hr>
-<h3> 1.4. UPVOTING A SPECIFIC QUESTION WITH PATCH METHOD </h3>
-<p> 
-    https://questioner-web-app.herokuapp.com/api/v1/questions/(id: put question id here)/upvote/
-</p>
-<hr>
-<h3> 1.5. DOWNVOTING A SPECIFIC QUESTION WITH PATCH METHOD </h3>
-<p> 
-    https://questioner-web-app.herokuapp.com/api/v1/questions/(id: put question id here)/downvote/
+    https://questioner-web-app.herokuapp.com/api/v1/questions/id
 </p>
 <hr>
 </body>
