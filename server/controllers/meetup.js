@@ -16,9 +16,9 @@ const meetups = {
         if (error) {
           res.status(400).json({ error: error.details[0].message });
         } else {
-          const id = dummy.length + 1;
+          const id = dummy.meetups.length + 1;
           const meetup = new meetUp(id, location, images, topic, happeningOn, tags);
-          dummy.push(meetup);
+          dummy.meetups.push(meetup);
             res.status(201).json({
               status: 201,
               success: 'meetup created',
@@ -48,7 +48,7 @@ const meetups = {
           if (error) {
             res.status(400).json({ error: error.details[0].message });
           } else {
-            dummy.map ((meetup) => {
+            dummy.meetups.map ((meetup) => {
             if (meetup.id === meetupId)
             {
                     res.status(200).json({
@@ -69,6 +69,13 @@ const meetups = {
     submitRSVP(req, res)
     {
     const meetupId = parseInt(req.params.id, 10);
+    const { error } = Joi.validate({
+        meetupId,
+      }, validate.meetupParams);
+  
+      if (error) {
+        res.status(400).json({ error: error.details[0].message });
+      } else {
     const meetup = dummy.meetups.find(meetup => meetup.id === meetupId);
     if (!meetup) {
             res.status(404).send({
@@ -100,7 +107,7 @@ const meetups = {
         success: 'rsvp submitted',
         data: rsvp
 });     
-}
+}}
     },
 
     retrieveMeetUpRSVP(req, res)
