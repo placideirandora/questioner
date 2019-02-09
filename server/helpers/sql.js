@@ -14,6 +14,8 @@ const retrieveAllMeetUps = 'SELECT * FROM meetups WHERE status = $1';
 
 const retrieveSpecificMeetUp = 'SELECT * FROM meetups WHERE id = $1 AND status = $2';
 
+const updateSpecificMeetUp = 'UPDATE meetups SET location = $3, topic = $4 WHERE id = $1 AND status = $2 RETURNING *'; 
+
 const retrieveUpcomingMeetUps = 'SELECT * FROM meetups WHERE happeningon > $1::DATE AND status = $2';
 
 const upvote = 'INSERT INTO votes(userid, questionid, upvotes) VALUES ($1, $2, $3) RETURNING * ';
@@ -54,6 +56,7 @@ sql.postQuestion = postQuestion;
 sql.submitRSVP = submitRSVP;
 sql.retrieveAllMeetUps = retrieveAllMeetUps;
 sql.retrieveSpecificMeetUp = retrieveSpecificMeetUp;
+sql.updateSpecificMeetUp = updateSpecificMeetUp;
 sql.retrieveUpcomingMeetUps = retrieveUpcomingMeetUps;
 sql.retrieveSpecificEmail = retrieveSpecificEmail;
 sql.upvote = upvote;
