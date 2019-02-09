@@ -18,6 +18,13 @@ const meetupSchema = Joi.object().keys({
   tags: Joi.array().items(Joi.string().alphanum().min(3)).required(),
 });
 
+const meetupUpdateSchema = Joi.object().keys({
+  meetupId: Joi.number().integer().required(),
+  location: Joi.string().min(3).max(150),
+  topic: Joi.string().min(3).max(50),
+  tags: Joi.array().items(Joi.string().alphanum().min(3)),
+});
+
 const questionSchema = Joi.object().keys({
   meetupId: Joi.number().integer().required(),
   createdBy: Joi.number().integer().required(),
@@ -57,6 +64,7 @@ const userParams = Joi.object().keys({
 export default {
   userSchema,
   meetupSchema,
+  meetupUpdateSchema,
   questionSchema,
   loginSchema,
   questionParams,
