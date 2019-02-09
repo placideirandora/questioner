@@ -19,7 +19,7 @@ const meetups = {
     if (error) {
       res.status(400).json({ error: error.details[0].message });
     } else {
-      const meetup = new meetUp(location, images, topic, happeningOn, tags);
+      const meetup = new meetUp(location, topic, happeningOn,images, tags);
       const query = database(sql.createMeetUp, [meetup.location, meetup.images, meetup.topic, meetup.happeningOn, meetup.tags]);
       query.then((response) => {
         const {
@@ -29,7 +29,7 @@ const meetups = {
           status: '201',
           success: 'meetup created',
           data: {
-                    topic, location, happeningon, tags, images
+                    topic, location, happeningon, images, tags
           },
         });
       }).catch((error) => {
@@ -78,12 +78,54 @@ const meetups = {
         res.status(200).json({
           status: '200',
           success: 'meetups retrieved',
-          meetup: response,
+          meetups: response,
         });
       }
     }).catch((error) => {
       res.status(500).send({ error: 'error occured', error });
     });
+  },
+
+  updateSpecificMeetUp(req, res) {
+    const meetupId = req.params.id;
+    const status = 'ACTIVE';
+    const {
+      location, topic
+    } = req.body;
+
+    const { error } = Joi.validate({
+      location, topic, meetupId
+    }, validate.meetupUpdateSchema);
+
+    if (error) {
+      res.status(400).json({ error: error.details[0].message });
+    } else {
+      const specificMeetUp = database(sql.retrieveSpecificMeetUp, [meetupId, status]);
+      specificMeetUp.then((response) => {
+        if (response.length === 0 || response.length === 'undefined') {
+          res.status(404).send({ status: '404', error: 'meetup with the specified id, not found' });
+        } 
+      }).catch((error) => {
+        res.status(500).send({ error: 'error occured', error });
+      });
+
+      const meetup = new meetUp(location, topic);
+      const query = database(sql.updateSpecificMeetUp, [meetupId, status, meetup.location, meetup.topic]);
+      query.then((response) => {
+        const {
+          location, topic, happeningon, images,  tags
+        } = response[0];
+        res.status(201).json({
+          status: '201',
+          success: 'meetup updated',
+          data: {
+            location, topic, happeningon, images,  tags
+          },
+        });
+      }).catch((error) => {
+        res.status(500).send({ error: 'meetup update failed', error });
+      });
+    }
   },
 
   deleteSpecificMeetUp(req, res) {
