@@ -228,9 +228,10 @@ input::placeholder {
  
  .user_unregistered-text,
  .user_registered-text {
-   font-size: 0.77rem;
+   font-size: 0.80rem;
    line-height: 1.4em;
    letter-spacing: 2px;
+   font-family: "Montserrat";
  }
  
  .user_registered-login,
