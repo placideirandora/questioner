@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0>
+    <title>Questioner - Account</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" type="image/png" href="../img/questioner-icon-3.png"/>
+  </head>
+  <body>
+      <div class="container">
+          <h1 class="title">Questioner</h1>
+                <section class="user">
+                        <div class="user_options-container">
+                          <div class="user_options-text">
+                            <div class="user_options-unregistered">
+                              <h2 class="user_unregistered-title">Don't Have An Account?</h2>
+                              <p class="user_unregistered-text">Create Your Own Account By Clicking On The Button Below.</p>
+                              <button class="user_unregistered-signup" id="signup-button">Sign up</button>
+                            </div>
+                            <div class="user_options-registered">
+                              <h2 class="user_registered-title">Have An Account?</h2>
+                              <p class="user_registered-text">Sign Into Your Own Account By Clicking On The Button Below.</p>
+                              <button class="user_registered-login" id="login-button">Sign In</button>
+                            </div>
+                          </div>
+                          <div class="user_options-forms" id="user_options-forms">
+                            <div class="user_forms-login">
+                              <h2 class="forms_title">Sign In</h2>
+                              <form class="forms_form">
+                                <fieldset class="forms_fieldset">
+                                  <div class="forms_field">
+                                   <input type="email" placeholder="Email" class="forms_field-input" autofocus />
+                                  </div>
+                                  <div class="forms_field">
+                                    <input type="password" placeholder="Password" class="forms_field-input" />
+                                  </div>
+                                </fieldset>
+                                <div class="forms_buttons">
+                                  <button type="button" class="forms_buttons-forgot" id="trigger">Forgot Password?</button>
+                                  <input type="submit" value="Sign In" class="forms_buttons-action" id="sign-in-button">
+                                </div>
+                              </form>
+                            </div>
+                            <div class="user_forms-signup">
+                              <h2 class="forms_title">Sign Up</h2>
+                              <form class="forms_form">
+                                <fieldset class="forms_fieldset">
+                                  <div class="forms_field">
+                                    <input type="text" placeholder="Firstname" class="forms_field-input" autofocus/>
+                                    <input type="text" placeholder="Lastname" class="forms_field-input" />
+                                  </div>
+                                  <div class="forms_field">
+                                    <input type="text" placeholder="Othername" class="forms_field-input" />
+                                    <input type="email" placeholder="Email" class="forms_field-input" />
+                                  </div>
+                                  <div class="forms_field">
+                                    <input type="text" placeholder="Phone Number" class="forms_field-input" />
+                                    <input type="text" placeholder="Username" class="forms_field-input" />
+                                  </div>
+                                  <div class="forms_field">
+                                    <input type="password" placeholder="Password" class="forms_field-input" />
+                                    <input type="password" placeholder="Confirm Password" class="forms_field-input" />
+                                  </div>
+                                </fieldset>
+                                <div class="forms_buttons">
+                                  <input type="submit" value="Sign up" class="forms_buttons-action">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal">
+                          <div class="modal-content">
+                              <h2>Password Reset</h2>
+                                  <div class="password-reset">
+                                      <form>
+                                    <input type="email" placeholder="Enter Email For Receiving A Password Reset Link" class="password-reset-input"/>
+                                    <input type="submit" value="Reset" class="password-reset-button" id="reset">
+                                  </form>
+                                  </div>
+                                 
+                              </div>
+                          </div>
+                        </section>
+                        <div class="notification">
+                          <div class="success">
+                              <p>
+                                Success
+                              </p>
+                          </div>
+                          <div class="fail">
+                              <p>
+                                Failure
+                              </p>
+                          </div>
+                        </div>
+                      </div>
+                      
+      </div>
+      <script  src="../js/script.js"></script>
+  </body>
+</html>
