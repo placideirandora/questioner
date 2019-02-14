@@ -16,7 +16,7 @@ body {
   background: url('../img/question-3.png') no-repeat center;
   background-size: cover;
   color: white;
-  font-family: 'Righteous';
+  font-family: 'Comfortaa';
 }
 
 .container .title {text-align: center; letter-spacing: 12px; text-transform: uppercase; }
@@ -109,33 +109,15 @@ input::placeholder {
  * Bounce to the left side
  */
 
- @-webkit-keyframes bounceLeft {
-  0% {
-    -webkit-transform: translate3d(100%, -50%, 0);
-            transform: translate3d(100%, -50%, 0);
-  }
-  50% {
-    -webkit-transform: translate3d(-30px, -50%, 0);
-            transform: translate3d(-30px, -50%, 0);
-  }
-  100% {
-    -webkit-transform: translate3d(0, -50%, 0);
-            transform: translate3d(0, -50%, 0);
-  }
-}
-
 @keyframes bounceLeft {
   0% {
-    -webkit-transform: translate3d(100%, -50%, 0);
-            transform: translate3d(100%, -50%, 0);
+            transform: translate(100%, -50%);
   }
   50% {
-    -webkit-transform: translate3d(-30px, -50%, 0);
-            transform: translate3d(-30px, -50%, 0);
+            transform: translate(-30px, -50%);
   }
   100% {
-    -webkit-transform: translate3d(0, -50%, 0);
-            transform: translate3d(0, -50%, 0);
+            transform: translate(0, -50%);
   }
 }
 
@@ -143,51 +125,23 @@ input::placeholder {
  * Bounce to the right side
  */
 
-@-webkit-keyframes bounceRight {
-  0% {
-    -webkit-transform: translate3d(0, -50%, 0);
-            transform: translate3d(0, -50%, 0);
-  }
-  50% {
-    -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
-            transform: translate3d(calc(100% + 30px), -50%, 0);
-  }
-  100% {
-    -webkit-transform: translate3d(100%, -50%, 0);
-            transform: translate3d(100%, -50%, 0);
-  }
-}
-
 @keyframes bounceRight {
   0% {
-    -webkit-transform: translate3d(0, -50%, 0);
-            transform: translate3d(0, -50%, 0);
+            transform: translate(0, -50%);
   }
   50% {
-    -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
-            transform: translate3d(calc(100% + 30px), -50%, 0);
+            transform: translate(calc(100% + 30px), -50%);
   }
   100% {
-    -webkit-transform: translate3d(100%, -50%, 0);
-            transform: translate3d(100%, -50%, 0);
+            transform: translate(100%, -50%);
   }
 }
 
-
-@-webkit-keyframes showSignUp {
-  100% {
-    opacity: 1;
-    visibility: visible;
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-  }
-}
 @keyframes showSignUp {
   100% {
     opacity: 1;
     visibility: visible;
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+            transform: translateX(0);
   }
 }
 
@@ -266,8 +220,7 @@ input::placeholder {
   border-radius: 3px;
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  -webkit-transform: translate3d(100%, -50%, 0);
-          transform: translate3d(100%, -50%, 0);
+  transform: translate(100%, -50%);
   
 }
 
@@ -355,15 +308,13 @@ input::placeholder {
   transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
 }
 .user_options-forms .user_forms-signup {
-  -webkit-transform: translate3d(120px, 0, 0);
-          transform: translate3d(120px, 0, 0);
+          transform: translateX(120px);
 }
 .user_options-forms .user_forms-signup .forms_buttons {
   justify-content: flex-end;
 }
 .user_options-forms .user_forms-login {
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+          transform: translateX(0);
   opacity: 1;
   visibility: visible;
 }
@@ -375,21 +326,17 @@ input::placeholder {
  * Triggers
  */
  .user_options-forms.bounceLeft {
-  -webkit-animation: bounceLeft 1s forwards;
           animation: bounceLeft 1s forwards;
 }
 .user_options-forms.bounceLeft .user_forms-signup {
-  -webkit-animation: showSignUp 1s forwards;
           animation: showSignUp 1s forwards;
 }
 .user_options-forms.bounceLeft .user_forms-login {
   opacity: 0;
   visibility: hidden;
-  -webkit-transform: translate3d(-120px, 0, 0);
-          transform: translate3d(-120px, 0, 0);
+          transform: translateX(-120px);
 }
 .user_options-forms.bounceRight {
-  -webkit-animation: bounceRight 1s forwards;
           animation: bounceRight 1s forwards;
 }
 
