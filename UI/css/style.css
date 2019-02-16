@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Righteous');
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import url('https://fonts.googleapis.com/css?family=Righteous');
 
 
 * {
@@ -16,7 +15,7 @@ body {
   background: url('../img/question-3.png') no-repeat center;
   background-size: cover;
   color: white;
-  font-family: 'Comfortaa';
+  font-family: 'Comfortaa', cursive;
 }
 
 .container .title {text-align: center; letter-spacing: 12px; text-transform: uppercase; }
@@ -101,7 +100,7 @@ input::placeholder {
   font-size: 0.80rem;
   font-weight: 300;
   letter-spacing: 0.1rem;
-  color: rgba(55, 56, 56, 0.979);
+  color: #06080A;
 }
 
 
@@ -244,7 +243,7 @@ input::placeholder {
   font-weight: 500;
   line-height: 1em;
   text-transform: uppercase;
-  color: rgb(201, 150, 0);
+  color: #84830B;
   letter-spacing: 0.1rem;
 }
 .user_options-forms .forms_field:not(:last-of-type) {
@@ -252,17 +251,17 @@ input::placeholder {
 }
 .user_options-forms .forms_field-input {
   width: 100%;
-  border-bottom: 1px solid rgb(127, 128, 127);
+  border-bottom: 1.5px solid #bbc1cd;
   padding: 6px 20px 6px 6px;
   font-family: 'Montserrat';
   font-size: 0.90rem;
-  font-weight: 300;
-  color: black;
+  font-weight: bold;
+  color: #06080A;
   letter-spacing: 0.1rem;
   transition: border-color 0.2s ease-in-out;
 }
 .user_options-forms .forms_field-input:focus {
-  border-color: rgb(201, 150, 0);
+  border-color: #84830B;
 }
 .user_options-forms .forms_buttons {
   display: flex;
@@ -273,7 +272,7 @@ input::placeholder {
 .user_options-forms .forms_buttons-forgot {
   font-family: 'Montserrat', cursive;
   letter-spacing: 0.1rem;
-  color: rgb(146, 145, 145);
+  color: #6c7882;
   text-decoration: underline;
   transition: color 0.2s ease-in-out;
 }
@@ -281,7 +280,7 @@ input::placeholder {
   color: black;
 }
 .user_options-forms .forms_buttons-action {
-  background-color: rgb(201, 150, 0);
+  background-color: #84830B;
   border-radius: 3px;
   padding: 10px 35px;
   font-size: 1rem;
@@ -292,8 +291,12 @@ input::placeholder {
   letter-spacing: 0.1rem;
   transition: background-color 0.2s ease-in-out;
 }
+.user_options-forms .forms_buttons-action a {
+  text-decoration: none;
+  color: #fff;
+}
 .user_options-forms .forms_buttons-action:hover {
-  background-color: rgba(150, 113, 3, 0.938);
+  background-color: #776C0D;
 }
 .user_options-forms .user_forms-signup,
 .user_options-forms .user_forms-login {
@@ -399,28 +402,28 @@ input::placeholder {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  color: rgb(201, 150, 0);
+  color: #84830B;
 }
 
 .user .modal .modal-content .password-reset-input{
   width: 100%;
-  border-bottom: 1px solid rgb(127, 128, 127);
+  border-bottom: 1.5px solid #bbc1cd;
   margin-top: 0.4rem;
   padding: 6px 20px 6px 6px;
   font-family: 'Montserrat';
   font-size: 0.90rem;
-  font-weight: 300;
-  color: black;
+  font-weight: bold;
+  color: #06080A;
   letter-spacing: 0.1rem;
   transition: border-color 0.2s ease-in-out;
 }
 
 .user .modal .modal-content .password-reset-input:focus{
-border-color: rgb(201, 150, 0);
+border-color: #84830B;
 }
 
 .user .modal .modal-content .password-reset-button {
-  background-color: rgb(201, 150, 0);
+  background-color: #84830B;
   border-radius: 3px;
   margin-top: 28px;
   margin-left: 37%;
@@ -435,7 +438,7 @@ border-color: rgb(201, 150, 0);
 }
 
 .user .modal .modal-content .password-reset-button:hover {
-background-color: rgba(150, 113, 3, 0.938);
+background-color: #776C0D;
 }
 
 .user .modal .modal-content .close-button {
@@ -468,3 +471,14 @@ background-color: rgba(150, 113, 3, 0.938);
   display: block;
 }
  
+/* admin dashboard */
+
+.container .sub-container .sideMenu
+{
+  background: #776C0D;
+  max-width: 280px;
+  width: 280px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
