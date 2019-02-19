@@ -37,11 +37,3 @@ function windowOnClick(event) {
         toggleModal();
     }
 }
-
-
-
-
-
-
-
-
