@@ -15,7 +15,7 @@ body {
   background: url('../img/question-3.png') no-repeat center;
   background-size: cover;
   color: white;
-  font-family: 'Comfortaa', cursive;
+  font-family: 'Comfortaa', 'Segoe UI';
 }
 
 .container .title {text-align: center; letter-spacing: 12px; text-transform: uppercase; }
