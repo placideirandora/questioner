@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0>
+    <title>Questioner - Post Meetup</title>
+    <link rel="stylesheet" href="../css/post-meetup.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="../IMG/questioner-icon-3.png"/>
+  </head>
+  <body>
+      <div class="container">
+          <div class="sub-container">
+              <div class="sideMenu">
+                  <div class="logo">
+                    <i class="fa fa-question-circle"></i>
+                    <h2 class="title">questioner</h2>
+                  </div>
+                  <nav>
+                      <a href="dashboard-admin.html"><i class="fa fa-home"></i>
+                        home</a>
+                      <a href="#"><i class="fa fa-user-circle"></i>
+                        profile</a>
+                      <a href="post-meetup.html" class="active"><i class="fa fa-plus-circle"></i>
+                        post meetup</a>
+                      <a href="#"><i class="fa fa-list-alt"></i>
+                        view meetups</a>
+                      <a href="#"><i class="fa fa-users"></i>
+                        users</a>
+                      <a href="#"><i class="fa fa-cogs"></i>
+                        settings</a>
+                      <a href="#"><i class="fa fa-sign-out"></i>
+                        sign out</a>
+                  </nav>
+              </div>
+          </div>
+          <header>
+              <div class="welcome">
+                  <h2 class="message">New Meetup</h2>
+              </div>
+              <div class="user-area">
+                  <a href="#">
+                    <div class="user-img"></div>
+                  </a>
+              </div>
+          </header>
+          <div class="meetup">
+                    <div class="title">
+                        POST A MEETUP
+                    </div>
+                    <div class="input-fields">
+                        <label class="label">location</label>
+                        <input type="text" class="input" autofocus>
+                    </div>
+                    <div class="input-fields">
+                            <label class="label">topic</label>
+                            <input type="text" class="input">
+                    </div>
+                    <div class="input-fields">
+                            <label class="label">date</label>
+                            <input type="date" class="input">
+                    </div>
+                    <div class="input-fields">
+                            <label class="label">images</label>
+                            <input type="text" class="input">
+                    </div>
+                    <div class="input-fields">
+                            <label class="label">tags</label>
+                            <input type="text" class="input">
+                    </div>
+                    <div class="btn" id="meetup-trigger">
+                        <a href="#">post meetup</a> 
+                    </div>
+                </div>           
+          </div>        
+      </div>
+            <script  src="../js/script.js"></script>
+  </body>
+</html>
