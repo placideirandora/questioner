@@ -5,6 +5,7 @@ const loginButton = document.getElementById('login-button');
 const userForms = document.getElementById('user_options-forms')
 const modal = document.querySelector(".modal");
 const trigger = document.querySelector("#trigger");
+const meetupTrigger = document.querySelector("#meetup-trigger");
 const closeButton = document.querySelector(".close-button");
 const resetButton = document.querySelector("#reset");
 
@@ -24,6 +25,9 @@ trigger.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 resetButton.addEventListener("click", ()=>{
   alert("Password Reset Link Has Been Sent To The Email");
+});
+meetupTrigger.addEventListener("click", ()=>{
+  alert("Meetup Posted Successfully!");
 })
 
 //Functions
