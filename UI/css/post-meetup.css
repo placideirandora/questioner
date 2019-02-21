@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+
+
+* {
+    box-sizing:border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: #eaedf3;
+  font-family: 'Comfortaa', 'Segoe UI';
+}
+
+/* admin dashboard */
+
+.logo
+{
+    padding-top: 1.7rem;
+}
+
+.logo .title
+{
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo .fa
+{
+    display: block;
+    font-size: 4rem;
+    text-align: center;
+}
+
+.sideMenu
+{
+  background: #776C0D;
+  max-width: 250px;
+  width: 250px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+nav
+{
+    padding-top: 20px;
+}
+
+.sideMenu a
+{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 30px;
+    font-weight: 580;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.sideMenu a:hover
+{
+    background: #5A5C0E;
+    border-left: 5px solid #F27900;
+    padding: 10px 30px 15px 25px;
+}
+
+.sideMenu a:hover .fa
+{
+    color: #F27900;
+}
+
+.sideMenu a .fa
+{
+    color: #eaedf3;;
+    font-size: 1.5rem;
+    margin-right: 0.4rem;
+    display: inline-block;
+    width: 30px;
+    position: relative;
+    top: 2px;
+}
+
+.sideMenu a.active
+{
+    background: #5A5C0E;
+    border-left: 5px solid #F27900;
+    padding: 10px 30px 15px 25px;
+}
+
+.sideMenu a.active .fa
+{
+    color: #F27900;
+}
+
+header
+{
+    background: #fff;
+    margin-left: 250px;
+    padding: 10px;
+}
+
+.welcome
+{
+    display: inline-block;
+}
+
+.message
+{
+    color: #5A5C0E;
+}
+
+.user-area
+{
+    float: right;
+    display: inline-block;
+}
+
+.user-area a
+{
+    display: inline-block;
+    padding-right: 20px;
+    text-decoration: none;
+}
+
+.user-area a .fa
+{
+    font-size: 20px;
+}
+
+.user-img
+{
+    background: url(../IMG/placide.jpg) no-repeat center;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #5A5C0E;
+    margin-top: 0.3rem;
+    transiton: all 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.user-img:hover
+{
+    border: 3px solid #F27900;
+}
+
+
+/* meetup */
+
+.meetup
+{
+    margin-left: 250px;
+    background: #fff;
+    color: black;
+    max-width: 50%;
+    width: 50%;
+    margin-top: 30px;
+    margin-left: 450px;
+    padding: 20px;
+}
+
+
+.meetup  .title { color:  #F27900; text-transform: uppercase;
+    letter-spacing: 2px; font-size: 18px;
+    font-weight: bold; margin-bottom: 25px; text-align: center;
+  }
+
+.meetup  .input-fields .label { color: #524a4a; font-size: 0.8rem; letter-spacing: 2px; 
+                                text-transform: uppercase;  }
+
+.meetup  .input { margin: 5px 0 15px; width: 100%; padding: 8px;
+    font-size: 0.90rem; font-family: 'Montserrat';
+    font-weight: bold; letter-spacing: 0.1rem;}
+
+.meetup  .forgot { font-size: 14px; letter-spacing: 1px; }
+
+.meetup  .prompt { font-size: 14px; letter-spacing: 1px; }
+
+.meetup .btn {
+    background-color: #F27900;
+  border-radius: 3px;
+  padding: 10px 25px;
+  margin-left: 14.5rem;
+  font-size: 1rem;
+  font-family: 'Righteous', cursive;
+  font-weight: 300;
+  color: #fff;
+  width: 12rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.meetup .btn:hover {
+    background-color: #C96213;
+    cursor: pointer;
+}
+
+.meetup .btn a{
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    padding-left: 8px;
+}
