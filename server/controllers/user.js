@@ -74,8 +74,8 @@ const users = {
             res.status(200).json({
               status: '200',
               success: 'logged in',
+              token,
               data: [{
-                token,
                 user: {
                   firstname, lastname, othername, email, phoneNumber, username,
                 },
