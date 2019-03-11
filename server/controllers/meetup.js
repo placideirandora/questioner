@@ -1,10 +1,13 @@
 
 import Joi from 'joi';
+import dotenv from 'dotenv';
 import sql from '../helpers/sql';
 import database from '../db/database';
 import meetUp from '../model/meetup';
 import Question from '../model/question';
 import validate from '../middleware/validate';
+
+dotenv.config();
 
 const meetups = {
   createMeetUp(req, res) {

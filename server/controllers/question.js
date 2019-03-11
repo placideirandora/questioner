@@ -1,8 +1,11 @@
 
 import Joi from 'joi';
+import dotenv from 'dotenv';
 import validate from '../middleware/validate';
 import database from '../db/database';
 import sql from '../helpers/sql';
+
+dotenv.config();
 
 const questions = {
 

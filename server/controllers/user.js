@@ -1,11 +1,14 @@
 
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import User from '../model/user';
 import validate from '../middleware/validate';
 import database from '../db/database';
 import sql from '../helpers/sql';
 import bcrypt from 'bcryptjs';
+
+dotenv.config();
 
 const users = {
   registerUser(req, res) {
