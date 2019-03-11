@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const newUser = {
     firstname: "Emmanuel",
     lastname: "CYUBAHIRO",
@@ -8,6 +12,11 @@ const newUser = {
     password: "123456"
 };
 
+const admin = {
+    email: "placideirandora@gmail.com",
+    password: process.env.ADMIN_PASSWORD,
+}
+
 const newUserLogIn = {
     email: newUser.email,
     password: newUser.password
@@ -17,4 +26,5 @@ const newUserLogIn = {
 export {
     newUser,
     newUserLogIn,
+    admin
 };
