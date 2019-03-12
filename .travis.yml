@@ -1,15 +1,16 @@
 language: node_js
 node_js:
   - "stable"
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database questioner-test;' -U postgres
 script:
   - npm test
 after_success:
   - npm run coveralls
   - codeclimate-test-reporter < ./coverage/lcov.info
-  - nyc report --reporter=text-lcov | coveralls
-addons:
-  code_climate:
-    repo_token:
-      secure: "192fbac2adcd9e1f62de0e9abd8be1b9d807e124b6d899ea62f31d7f86e42531"
+ 
+
                
 
