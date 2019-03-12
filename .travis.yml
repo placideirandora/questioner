@@ -1,10 +1,10 @@
 language: node_js
 node_js:
   - "stable"
-services:
-  - postgresql
 before_script:
-  - "psql -c 'create database questioner;' -U postgres"
+  - psql -c 'create database travis_ci_test;' -U postgres
+  services:
+  - postgresql
 script:
   - npm test
 after_success:
