@@ -8,6 +8,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database questioner;' -U postgres
+  - NODE_ENV=test npm run
 script:
   - npm test
 after_success:
