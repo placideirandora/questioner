@@ -1,6 +1,6 @@
 env:
   global:
-    - DATABASE_TEST=postgres://postgres@localhost:5000/questionertest
+    - DATABASE_TEST=postgres://postgres@localhost:5000/questioner
 language: node_js
 node_js:
   - "stable"
