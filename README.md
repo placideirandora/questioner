@@ -1,4 +1,4 @@
-# QUESTIONER
+# QUESTIONER (NODE.JS)
 
 ​Questioner​ helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
@@ -56,6 +56,12 @@ BcryptJS and JsonWebToken
 ```
 
 ## GETTING STARTED
+
+### Clone The Project
+
+```
+$ git clone https://github.com/placideirandora/questioner-with-node.js
+```
 
 ### Install Required Dependencies
 
