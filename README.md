@@ -1,59 +1,33 @@
-# QUESTIONER (NODE.JS)
+# QUESTIONER (NODEJS)
 
-​Questioner​ helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
+A full-stack web application that helps meetup organizers prioritize questions to be answered. 
 
 [![Build Status](https://travis-ci.org/placideirandora/questioner.svg?branch=develop)](https://travis-ci.org/placideirandora/questioner)  [![Coverage Status](https://coveralls.io/repos/github/placideirandora/questioner/badge.svg?branch=develop)](https://coveralls.io/github/placideirandora/questioner?branch=develop)  [![Maintainability](https://api.codeclimate.com/v1/badges/931a22049dce652e85fe/maintainability)](https://codeclimate.com/github/placideirandora/questioner/maintainability) 
 
 
-## TOOLS USED
+## SOFTWARE TECHNOLOGIES
+- **HTML + CSS + JS** - UI
 
-### Programming Language
+- **NodeJS** - JavaScript Run-time Environment
 
-```
-JavaScript
-```
+- **ExpressJS** - Web Framework
 
-### Server Environment
+- **Mocha and Chai** - Test Framework And Assertion Library
 
-```
-NodeJS
-```
+- **Travis-CI** - Continuous Integration Testing
 
-### Test Libraries
+- **Coveralls** - Continuous Integration Test Coverage
 
-```
-Mocha, Chai, and Jasmine
-```
+- **Code Climate** - Continuous Integration Code Quality
 
-### Continuous Integration Testing
+- **Heroku** - Deployment. [Visit The App](https://epic-mail-ch3.herokuapp.com/)
 
-```
-Travis-CI and Coveralls
-```
+- **GitHub Pages** - Front-End UI Hosting. [Visit The App](https://placideirandora.github.io/epic-mail/)
 
-### Code Maintainability
+- **SQL** - Database Data Processing Language
 
-```
-Code Climate
-```
+- **PostgreSQL** - Database System. [Download And Install It](https://www.postgresql.org/)
 
-### Database
-
-```
-PostgreSQL
-```
-
-### Deployment
-
-```
-Heroku
-```
-
-### Security
-
-```
-BcryptJS and JsonWebToken
-```
 
 ## GETTING STARTED
 
@@ -69,6 +43,76 @@ $ git clone https://github.com/placideirandora/questioner-with-node.js
 $ npm install
 ```
 
+### Download And Install A Database Management System
+
+```
+$ PostgreSQL
+```
+
+### PostgreSQL Databases
+
+```
+$ Create a PostgreSQL database called 'questioner' for development
+```
+
+```
+$ Create a PostgreSQL database called 'questioner-test' for testing
+```
+
+### Create A .env File In The Project Folder And Save The Following Credentials Inside
+
+```
+$ DB_HOST = "localhost"
+```
+
+```
+$ DB_USER = "postgres"
+```
+
+```
+$ DB_PASSWORD = "xxxxxxxxxx"
+```
+
+```
+$ DB_NAME = "questioner"
+```
+
+```
+$ DB_NAME_TEST = "questioner-test"
+```
+
+```
+$ DB_PORT = 5000 (custom) or 5432 (default)
+```
+
+```
+$ ADMIN_FIRSTNAME = "someone"
+```
+
+```
+$ ADMIN_LASTNAME = "someone"
+```
+
+```
+$ ADMIN_USERNAME = "someone"
+```
+
+```
+$ ADMIN_EMAIL = "someone@email.com"
+```
+
+```
+$ ADMIN_PASSWORD = "xxxxxxxxxx"
+```
+
+```
+$ IS_ADMIN = "true"
+```
+
+```
+$ SECRET_KEY = "xxxxxxxxxxx"
+```
+
 ### Start The Server
 
 ```
@@ -78,7 +122,7 @@ $ npm start
 ### Run Tests
 
 ```
-$ npm run test
+$ npm test
 ```
 
 ## API ENDPOINT ROUTES
@@ -235,11 +279,4 @@ $ npm run test
 }
 ```
 
-## DEVELOPER
-
-Placide IRANDORA
-
-## COPYRIGHT
-
-&copy; 2019 Placide IRANDORA
 
