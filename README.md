@@ -34,7 +34,7 @@ A full-stack web application that helps meetup organizers prioritize questions t
 ### Clone The Project
 
 ```
-$ git clone https://github.com/placideirandora/questioner-with-node.js
+$ git clone https://github.com/placiderapson/questioner-with-node.js
 ```
 
 ### Install Required Dependencies
