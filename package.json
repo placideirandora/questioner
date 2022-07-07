@@ -39,7 +39,7 @@
     "joi-date-extensions": "^1.2.0",
     "jsonwebtoken": "^8.4.0",
     "mocha": "^5.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nyc": "^14.1.1",
